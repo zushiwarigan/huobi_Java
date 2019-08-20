@@ -1,0 +1,91 @@
+buildscript {
+    ext {
+
+    }
+
+    repositories {
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+        jcenter()
+    }
+    dependencies {
+    }
+}
+
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+
+group 'com.huobi.sdk'
+version = '1.0-SNAPSHOT'
+archivesBaseName = 'huobi-client'
+description = '火币SDK'
+
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+repositories {
+    maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+    jcenter()
+}
+
+dependencies {
+    implementation("com.google.protobuf:protobuf-java:$protobufVersion")
+    implementation("com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion")
+    implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
+    implementation("com.google.guava:guava:$guavaVersion")
+    implementation "com.google.code.gson:gson:${gsonVersion}"
+    implementation "commons-io:commons-io:${commonsioVersion}"
+    implementation "org.apache.commons:commons-lang3:${commonslang3Version}"
+    implementation "commons-beanutils:commons-beanutils:${commonsbeanutilsVersion}"
+    implementation group: 'com.alibaba', name: 'fastjson', version: "${fastjsonVersion}"
+    implementation "commons-codec:commons-codec:${commonscodecVersion}"
+    implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
+//    implementation 'com.squareup.okhttp3:okhttp:3.12.1'
+
+    implementation "org.slf4j:slf4j-api:$slf4jVersion"
+    implementation "org.slf4j:jcl-over-slf4j:$slf4jVersion"
+    implementation "org.slf4j:slf4j-log4j12:$slf4jVersion"
+
+    compileOnly("org.projectlombok:lombok:$lombokVersion")
+    annotationProcessor("org.projectlombok:lombok:$lombokVersion")
+    testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
+
+//    compile 'ch.qos.logback:logback-classic:1.2.3'
+//    testCompile 'org.powermock:powermock-api-mockito:1.7.4'
+//    testCompile 'org.powermock:powermock-module-junit4:1.7.4'
+//    testCompile 'junit:junit:4.12'
+
+    testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:$junitVersion")
+    testRuntime("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
+}
+
+
+wrapper {
+    gradleVersion = '5.6'
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+    options.compilerArgs << "-Xlint:unchecked"
+    options.compilerArgs << "-Xlint:deprecation"
+}
+
+tasks.withType(Test) {
+    testLogging {
+        events 'started', 'passed'
+    }
+}
+
+compileJava {
+    options.compilerArgs << '-Xlint:deprecation' << '-Xlint:unchecked'
+}
+
+test {
+    testLogging.showStandardStreams = true
+    useJUnitPlatform()
+}
+
