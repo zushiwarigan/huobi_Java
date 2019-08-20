@@ -28,7 +28,11 @@ public interface SubscriptionClient {
    * @param callback The implementation is required. onReceive will be called if receive server's
    * update.
    */
+  @Deprecated
   void subscribeCandlestickEvent(String symbols, CandlestickInterval interval,
+      SubscriptionListener<CandlestickEvent> callback);
+
+  void subscribeCandlestick(String symbols, CandlestickInterval interval,
       SubscriptionListener<CandlestickEvent> callback);
 
   /**

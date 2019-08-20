@@ -1,17 +1,19 @@
 package com.huobi.client.examples;
 
+import lombok.extern.slf4j.Slf4j;
+
 import com.huobi.client.SubscriptionClient;
-import com.huobi.client.SubscriptionOptions;
-import com.huobi.client.model.enums.CandlestickInterval;
 
+
+@Slf4j
 public class SubscribeMarketDepth {
-    public static void main(String[] args) {
-        SubscriptionClient subscriptionClient = SubscriptionClient.create();
-        subscriptionClient.subscribePriceDepthEvent("btcusdt",  (priceDepthEvent) -> {
-            System.out.println();
-            System.out.println("bids 0 price: " + priceDepthEvent.getData().getBids().get(0).getPrice());
-            System.out.println("bids 0 volume: " + priceDepthEvent.getData().getBids().get(0).getAmount());
 
-        });
-    }
+  public static void main(String[] args) {
+    SubscriptionClient subscriptionClient = SubscriptionClient.create();
+    subscriptionClient.subscribePriceDepthEvent("btcusdt", (priceDepthEvent) -> {
+      log.info("bids 0 price: " + priceDepthEvent.getData().getBids().get(0).getPrice());
+      log.info("bids 0 volume: " + priceDepthEvent.getData().getBids().get(0).getAmount());
+
+    });
+  }
 }

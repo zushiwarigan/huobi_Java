@@ -1,5 +1,10 @@
 package com.huobi.client.impl;
 
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Objects;
+
 import com.huobi.client.SubscriptionClient;
 import com.huobi.client.SubscriptionErrorHandler;
 import com.huobi.client.SubscriptionListener;
@@ -13,14 +18,10 @@ import com.huobi.client.model.event.PriceDepthEvent;
 import com.huobi.client.model.event.TradeEvent;
 import com.huobi.client.model.event.TradeStatisticsEvent;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
-
 public class WebSocketStreamClientImpl implements SubscriptionClient {
+
   private final SubscriptionOptions options;
-  private  WebSocketWatchDog watchDog;
+  private WebSocketWatchDog watchDog;
 
   private final WebsocketRequestImpl requestImpl;
 
@@ -59,6 +60,14 @@ public class WebSocketStreamClientImpl implements SubscriptionClient {
       CandlestickInterval interval,
       SubscriptionListener<CandlestickEvent> callback) {
     subscribeCandlestickEvent(symbols, interval, callback, null);
+  }
+
+  @Override
+  public void subscribeCandlestick(
+      String symbols,
+      CandlestickInterval interval,
+      SubscriptionListener<CandlestickEvent> callback) {
+
   }
 
   @Override
@@ -132,7 +141,7 @@ public class WebSocketStreamClientImpl implements SubscriptionClient {
   public void subscribeAccountEvent(
       BalanceMode mode,
       SubscriptionListener<AccountEvent> subscriptionListener) {
-    subscribeAccountEvent(mode,subscriptionListener,null);
+    subscribeAccountEvent(mode, subscriptionListener, null);
   }
 
   @Override
@@ -145,8 +154,8 @@ public class WebSocketStreamClientImpl implements SubscriptionClient {
 
   @Override
   public void subscribe24HTradeStatisticsEvent(String symbols,
-                                              SubscriptionListener<TradeStatisticsEvent> subscriptionListener) {
-    subscribe24HTradeStatisticsEvent(symbols,subscriptionListener,null);
+      SubscriptionListener<TradeStatisticsEvent> subscriptionListener) {
+    subscribe24HTradeStatisticsEvent(symbols, subscriptionListener, null);
   }
 
   @Override
