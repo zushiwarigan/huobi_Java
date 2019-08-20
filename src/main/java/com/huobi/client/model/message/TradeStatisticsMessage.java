@@ -1,4 +1,4 @@
-package com.huobi.client.model.event;
+package com.huobi.client.model.message;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +14,7 @@ import com.huobi.client.model.TradeStatistics;
 @AllArgsConstructor
 @Data
 @Builder
-public class TradeStatisticsEvent {
+public class TradeStatisticsMessage {
 
   /**
    * the symbol you subscribed.

@@ -50,6 +50,7 @@ public class WebSocketStreamClientImpl implements SubscriptionClient {
     connection.connect();
   }
 
+
   private List<String> parseSymbols(String symbol) {
     return Arrays.asList(symbol.split("[,]"));
   }
@@ -62,13 +63,6 @@ public class WebSocketStreamClientImpl implements SubscriptionClient {
     subscribeCandlestickEvent(symbols, interval, callback, null);
   }
 
-  @Override
-  public void subscribeCandlestick(
-      String symbols,
-      CandlestickInterval interval,
-      SubscriptionListener<CandlestickEvent> callback) {
-
-  }
 
   @Override
   public void subscribeCandlestickEvent(
@@ -79,6 +73,7 @@ public class WebSocketStreamClientImpl implements SubscriptionClient {
     createConnection(requestImpl.subscribeCandlestickEvent(
         parseSymbols(symbols), interval, subscriptionListener, errorHandler));
   }
+
 
   @Override
   public void subscribePriceDepthEvent(

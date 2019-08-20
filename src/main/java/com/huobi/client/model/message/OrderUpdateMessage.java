@@ -1,4 +1,4 @@
-package com.huobi.client.model.event;
+package com.huobi.client.model.message;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +14,7 @@ import com.huobi.client.model.Order;
 @AllArgsConstructor
 @Data
 @Builder
-public class OrderUpdateEvent {
+public class OrderUpdateMessage {
 
   /**
    * the symbol you subscribed. like "btcusdt".

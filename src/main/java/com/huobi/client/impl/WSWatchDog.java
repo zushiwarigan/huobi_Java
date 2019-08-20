@@ -8,17 +8,17 @@ import java.util.concurrent.TimeUnit;
 
 import lombok.extern.slf4j.Slf4j;
 
-import com.huobi.client.SubscriptionOptions;
-import com.huobi.client.impl.WebSocketConnection.ConnectionState;
+import com.huobi.client.SubscribeOption;
+import com.huobi.client.impl.WSConnection.ConnectionState;
 
 @Slf4j
-class WebSocketWatchDog {
+public class WSWatchDog {
 
-  private final CopyOnWriteArrayList<WebSocketConnection> TIME_HELPER = new CopyOnWriteArrayList<>();
+  private final CopyOnWriteArrayList<WSConnection> TIME_HELPER = new CopyOnWriteArrayList<>();
 
-  private final SubscriptionOptions options;
+  private final SubscribeOption options;
 
-  WebSocketWatchDog(SubscriptionOptions subscriptionOptions) {
+  public WSWatchDog(SubscribeOption subscriptionOptions) {
     this.options = Objects.requireNonNull(subscriptionOptions);
     long t = 1_000;
     ScheduledExecutorService exec = Executors.newScheduledThreadPool(1);
@@ -45,11 +45,11 @@ class WebSocketWatchDog {
     Runtime.getRuntime().addShutdownHook(new Thread(exec::shutdown));
   }
 
-  void onConnectionCreated(WebSocketConnection connection) {
+  void onConnectionCreated(WSConnection connection) {
     TIME_HELPER.addIfAbsent(connection);
   }
 
-  void onClosedNormally(WebSocketConnection connection) {
+  void onClosedNormally(WSConnection connection) {
     TIME_HELPER.remove(connection);
   }
 }

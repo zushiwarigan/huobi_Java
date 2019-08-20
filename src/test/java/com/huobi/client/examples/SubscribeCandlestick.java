@@ -2,6 +2,7 @@ package com.huobi.client.examples;
 
 import lombok.extern.slf4j.Slf4j;
 
+import com.huobi.client.SubscribeClient;
 import com.huobi.client.SubscriptionClient;
 import com.huobi.client.model.enums.CandlestickInterval;
 
@@ -10,9 +11,8 @@ import com.huobi.client.model.enums.CandlestickInterval;
 public class SubscribeCandlestick {
 
   public static void main(String[] args) {
-    SubscriptionClient subscriptionClient = SubscriptionClient.create();
-
     //旧方式
+    SubscriptionClient subscriptionClient = SubscriptionClient.create();
     subscriptionClient.subscribeCandlestickEvent("btcusdt", CandlestickInterval.MIN15, (candlestickEvent) -> {
       log.info("Timestamp: " + candlestickEvent.getData().getTimestamp());
       log.info("High: " + candlestickEvent.getData().getHigh());
@@ -23,5 +23,14 @@ public class SubscribeCandlestick {
     });
 
     //新方式
+    SubscribeClient subscribeClient = SubscribeClient.create();
+    subscribeClient.subscribeCandlestick("btcusdt", CandlestickInterval.MIN15, (candlestickMessage) -> {
+      log.info("Timestamp: " + candlestickMessage.getData().getTimestamp());
+      log.info("High: " + candlestickMessage.getData().getHigh());
+      log.info("Low: " + candlestickMessage.getData().getLow());
+      log.info("Open: " + candlestickMessage.getData().getOpen());
+      log.info("Close: " + candlestickMessage.getData().getClose());
+      log.info("Volume: " + candlestickMessage.getData().getVolume());
+    });
   }
 }

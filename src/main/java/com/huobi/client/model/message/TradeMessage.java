@@ -1,4 +1,4 @@
-package com.huobi.client.model.event;
+package com.huobi.client.model.message;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import com.huobi.client.model.Trade;
 @AllArgsConstructor
 @Data
 @Builder
-public class TradeEvent {
+public class TradeMessage {
 
   /**
    * Get the symbol you subscribed.

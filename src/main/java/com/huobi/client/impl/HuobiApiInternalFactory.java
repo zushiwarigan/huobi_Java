@@ -1,11 +1,14 @@
 package com.huobi.client.impl;
 
+import java.net.URI;
+
 import com.huobi.client.AsyncRequestClient;
 import com.huobi.client.RequestOptions;
+import com.huobi.client.SubscribeClient;
+import com.huobi.client.SubscribeOption;
 import com.huobi.client.SubscriptionClient;
 import com.huobi.client.SubscriptionOptions;
 import com.huobi.client.SyncRequestClient;
-import java.net.URI;
 
 public final class HuobiApiInternalFactory {
 
@@ -57,5 +60,23 @@ public final class HuobiApiInternalFactory {
     return webSocketStreamClient;
   }
 
+  public SubscribeClient createSubscribeClient(
+      String apiKey, String secretKey, SubscribeOption options) {
+    SubscribeOption subscribeOption = new SubscribeOption(options);
+    RequestOptions requestOptions = new RequestOptions();
+    try {
+      String host = new URI(options.getUri()).getHost();
+      requestOptions.setUrl("https://" + host);
+    } catch (Exception e) {
+
+    }
+    RestApiRequestImpl requestImpl = new RestApiRequestImpl(apiKey, secretKey, requestOptions);
+    SubscribeClient wsStreamClient = new WSStreamClientImpl(
+        apiKey, secretKey, subscribeOption);
+    if (!"".equals(apiKey) && !"".equals(secretKey)) {
+      AccountsInfoMap.updateUserInfo(apiKey, requestImpl);
+    }
+    return wsStreamClient;
+  }
 
 }

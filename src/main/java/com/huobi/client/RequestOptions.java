@@ -1,17 +1,22 @@
 package com.huobi.client;
 
-import com.huobi.client.exception.HuobiApiException;
 import java.net.URL;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+import com.huobi.client.exception.HuobiApiException;
 
 /**
  * The configuration for the request APIs
  */
+@Slf4j
+@NoArgsConstructor
 public class RequestOptions {
 
+  @Getter
   private String url = "https://api.huobi.pro";
-
-  public RequestOptions() {
-  }
 
   public RequestOptions(RequestOptions option) {
     this.url = option.url;
@@ -25,15 +30,11 @@ public class RequestOptions {
   public void setUrl(String url) {
     try {
       URL u = new URL(url);
-    } catch (Exception e)
-    {
+    } catch (Exception e) {
       throw new HuobiApiException(
           HuobiApiException.INPUT_ERROR, "The URI is incorrect: " + e.getMessage());
     }
     this.url = url;
   }
 
-  public String getUrl() {
-    return url;
-  }
 }

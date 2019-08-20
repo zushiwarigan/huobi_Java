@@ -1,22 +1,20 @@
-package com.huobi.client.model.event;
-
-import java.util.List;
+package com.huobi.client.model.message;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import com.huobi.client.model.Trade;
+import com.huobi.client.model.PriceDepth;
 
 /**
- * The trade received by subscription of trade.
+ * The price depth received by subscription of price depth.
  */
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Builder
-public class TradeEvent {
+public class PriceDepthMessage {
 
   /**
    * Get the symbol you subscribed.
@@ -31,9 +29,9 @@ public class TradeEvent {
   private Long timestamp;
 
   /**
-   * the trade.
+   * the price depth.
    *
-   * The trade data, see {@link Trade}
+   * The price depth data, see {@link PriceDepth}
    */
-  private List<Trade> tradeList;
+  private PriceDepth data;
 }

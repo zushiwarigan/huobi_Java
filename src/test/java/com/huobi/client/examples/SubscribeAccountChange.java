@@ -1,23 +1,28 @@
 package com.huobi.client.examples;
 
+import lombok.extern.slf4j.Slf4j;
+
 import com.huobi.client.SubscriptionClient;
 import com.huobi.client.SubscriptionOptions;
 import com.huobi.client.model.AccountChange;
 import com.huobi.client.model.enums.BalanceMode;
 
+
+@Slf4j
 public class SubscribeAccountChange {
+
   public static void main(String[] args) {
     SubscriptionOptions options = new SubscriptionOptions();
     options.setUri("wss://api.huobi.pro");
     SubscriptionClient subscriptionClient = SubscriptionClient.create(
         "xxxxxx", "xxxxxx", options);
     subscriptionClient.subscribeAccountEvent(BalanceMode.AVAILABLE, (accountEvent) -> {
-      System.out.println("---- Account Change: " + accountEvent.getChangeType() + " ----");
-      for (AccountChange change : accountEvent.getData()) {
-        System.out.println("Account: " + change.getAccountType());
-        System.out.println("Currency: " + change.getCurrency());
-        System.out.println("Balance: " + change.getBalance());
-        System.out.println("Balance type: " + change.getBalanceType());
+      log.info("---- Account Change: " + accountEvent.getChangeType() + " ----");
+      for (AccountChange change : accountEvent.getAccountChangeList()) {
+        log.info("Account: " + change.getAccountType());
+        log.info("Currency: " + change.getCurrency());
+        log.info("Balance: " + change.getBalance());
+        log.info("Balance type: " + change.getBalanceType());
       }
     });
   }

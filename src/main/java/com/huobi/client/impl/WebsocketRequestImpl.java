@@ -259,7 +259,7 @@ class WebsocketRequestImpl {
         change.setBalanceType(BalanceType.lookup(itemInList.getString("type")));
         accountChangeList.add(change);
       });
-      accountEvent.setData(accountChangeList);
+      accountEvent.setAccountChangeList(accountChangeList);
       return accountEvent;
     };
     return request;
@@ -301,7 +301,7 @@ class WebsocketRequestImpl {
       statistics.setCount(tick.getLong("count"));
       statistics.setLow(tick.getBigDecimal("low"));
       statistics.setVolume(tick.getBigDecimal("vol"));
-      tradeStatisticsEvent.setData(statistics);
+      tradeStatisticsEvent.setTradeStatistics(statistics);
       return tradeStatisticsEvent;
     };
     return request;
