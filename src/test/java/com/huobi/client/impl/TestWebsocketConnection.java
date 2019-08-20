@@ -1,16 +1,17 @@
 package com.huobi.client.impl;
 
+import org.junit.Test;
+import org.mockito.ArgumentCaptor;
+
+import com.huobi.client.SubscriptionErrorHandler;
+import com.huobi.client.SubscriptionListener;
+import com.huobi.client.exception.HuobiApiException;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-
-import com.huobi.client.SubscriptionErrorHandler;
-import com.huobi.client.SubscriptionListener;
-import com.huobi.client.exception.HuobiApiException;
-import org.junit.Test;
-import org.mockito.ArgumentCaptor;
 
 public class TestWebsocketConnection {
 

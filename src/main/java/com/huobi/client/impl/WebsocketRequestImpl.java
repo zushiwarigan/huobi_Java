@@ -1,6 +1,7 @@
 package com.huobi.client.impl;
 
-import static com.huobi.client.impl.utils.InternalUtils.await;
+import java.util.LinkedList;
+import java.util.List;
 
 import com.huobi.client.SubscriptionErrorHandler;
 import com.huobi.client.SubscriptionListener;
@@ -29,8 +30,8 @@ import com.huobi.client.model.event.OrderUpdateEvent;
 import com.huobi.client.model.event.PriceDepthEvent;
 import com.huobi.client.model.event.TradeEvent;
 import com.huobi.client.model.event.TradeStatisticsEvent;
-import java.util.LinkedList;
-import java.util.List;
+
+import static com.huobi.client.impl.utils.InternalUtils.await;
 
 class WebsocketRequestImpl {
 

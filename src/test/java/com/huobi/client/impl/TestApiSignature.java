@@ -1,14 +1,15 @@
 package com.huobi.client.impl;
 
-import static org.junit.Assert.assertEquals;
-
-import com.huobi.client.impl.utils.UrlParamsBuilder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+
+import com.huobi.client.impl.utils.UrlParamsBuilder;
+
+import static org.junit.Assert.assertEquals;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({ApiSignature.class})

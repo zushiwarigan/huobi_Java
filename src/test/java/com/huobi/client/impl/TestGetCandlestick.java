@@ -1,21 +1,23 @@
 package com.huobi.client.impl;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import java.math.BigDecimal;
+import java.util.List;
+
+import okhttp3.Request;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import com.huobi.client.RequestOptions;
 import com.huobi.client.exception.HuobiApiException;
 import com.huobi.client.impl.utils.JsonWrapper;
 import com.huobi.client.model.Candlestick;
 import com.huobi.client.model.enums.CandlestickInterval;
-import java.math.BigDecimal;
-import java.util.List;
-import okhttp3.Request;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 public class TestGetCandlestick {
 

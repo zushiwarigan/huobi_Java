@@ -1,10 +1,12 @@
 package com.huobi.client.examples;
 
+import java.util.List;
+
 import com.huobi.client.AsyncRequestClient;
 import com.huobi.client.SyncRequestClient;
 import com.huobi.client.model.Candlestick;
 import com.huobi.client.model.enums.CandlestickInterval;
-import java.util.List;
+
 
 public class GetCandlestickData {
   public static void main(String[] args) {

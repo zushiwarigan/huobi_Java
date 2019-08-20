@@ -1,23 +1,9 @@
 package com.huobi.client.impl;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.powermock.api.mockito.PowerMockito.mockStatic;
-import static org.powermock.api.mockito.PowerMockito.when;
-
-import com.huobi.client.AsyncResult;
-import com.huobi.client.ResponseCallback;
-import com.huobi.client.impl.utils.SucceededAsyncResult;
-import com.huobi.client.model.ExchangeInfo;
-import com.huobi.client.model.Symbol;
-import com.huobi.client.model.Trade;
 import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -26,6 +12,22 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+
+import com.huobi.client.AsyncResult;
+import com.huobi.client.ResponseCallback;
+import com.huobi.client.impl.utils.SucceededAsyncResult;
+import com.huobi.client.model.ExchangeInfo;
+import com.huobi.client.model.Symbol;
+import com.huobi.client.model.Trade;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.powermock.api.mockito.PowerMockito.mockStatic;
+import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({RestApiInvoker.class})
@@ -107,3 +109,4 @@ public class TestAsyncRequestImpl {
 
 
 }
+
