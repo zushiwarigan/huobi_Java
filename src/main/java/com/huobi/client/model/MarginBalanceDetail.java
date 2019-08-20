@@ -1,7 +1,7 @@
 package com.huobi.client.model;
 
-import com.huobi.client.model.enums.AccountState;
-import com.huobi.client.model.enums.AccountType;
+import com.huobi.client.enums.AccountState;
+import com.huobi.client.enums.AccountType;
 import java.math.BigDecimal;
 import java.util.List;
 

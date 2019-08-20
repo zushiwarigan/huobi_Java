@@ -5,10 +5,10 @@ import java.util.List;
 
 import com.huobi.client.SubscriptionErrorHandler;
 import com.huobi.client.SubscriptionListener;
-import com.huobi.client.impl.utils.Channels;
-import com.huobi.client.impl.utils.JsonWrapper;
-import com.huobi.client.impl.utils.JsonWrapperArray;
-import com.huobi.client.impl.utils.TimeService;
+import com.huobi.client.utils.Channels;
+import com.huobi.client.utils.JsonWrapper;
+import com.huobi.client.utils.JsonWrapperArray;
+import com.huobi.client.utils.TimeService;
 import com.huobi.client.model.AccountChange;
 import com.huobi.client.model.Candlestick;
 import com.huobi.client.model.DepthEntry;
@@ -16,22 +16,22 @@ import com.huobi.client.model.Order;
 import com.huobi.client.model.PriceDepth;
 import com.huobi.client.model.Trade;
 import com.huobi.client.model.TradeStatistics;
-import com.huobi.client.model.enums.AccountChangeType;
-import com.huobi.client.model.enums.BalanceMode;
-import com.huobi.client.model.enums.BalanceType;
-import com.huobi.client.model.enums.CandlestickInterval;
-import com.huobi.client.model.enums.OrderSource;
-import com.huobi.client.model.enums.OrderState;
-import com.huobi.client.model.enums.OrderType;
-import com.huobi.client.model.enums.TradeDirection;
-import com.huobi.client.model.event.AccountEvent;
-import com.huobi.client.model.event.CandlestickEvent;
-import com.huobi.client.model.event.OrderUpdateEvent;
-import com.huobi.client.model.event.PriceDepthEvent;
-import com.huobi.client.model.event.TradeEvent;
-import com.huobi.client.model.event.TradeStatisticsEvent;
+import com.huobi.client.enums.AccountChangeType;
+import com.huobi.client.enums.BalanceMode;
+import com.huobi.client.enums.BalanceType;
+import com.huobi.client.enums.CandlestickInterval;
+import com.huobi.client.enums.OrderSource;
+import com.huobi.client.enums.OrderState;
+import com.huobi.client.enums.OrderType;
+import com.huobi.client.enums.TradeDirection;
+import com.huobi.client.event.AccountEvent;
+import com.huobi.client.event.CandlestickEvent;
+import com.huobi.client.event.OrderUpdateEvent;
+import com.huobi.client.event.PriceDepthEvent;
+import com.huobi.client.event.TradeEvent;
+import com.huobi.client.event.TradeStatisticsEvent;
 
-import static com.huobi.client.impl.utils.InternalUtils.await;
+import static com.huobi.client.utils.InternalUtils.await;
 
 class WebsocketRequestImpl {
 

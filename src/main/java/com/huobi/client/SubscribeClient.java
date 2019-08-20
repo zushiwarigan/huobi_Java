@@ -1,9 +1,9 @@
 package com.huobi.client;
 
 import com.huobi.client.impl.HuobiApiInternalFactory;
-import com.huobi.client.model.enums.BalanceMode;
-import com.huobi.client.model.enums.CandlestickInterval;
-import com.huobi.client.model.message.CandlestickMessage;
+import com.huobi.client.enums.BalanceMode;
+import com.huobi.client.enums.CandlestickInterval;
+import com.huobi.client.message.CandlestickMessage;
 
 /***
  * The subscription client interface, it is used for subscribing any market data update and

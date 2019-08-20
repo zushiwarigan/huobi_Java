@@ -2,7 +2,7 @@ package com.huobi.client.impl;
 
 import com.huobi.client.SubscriptionErrorHandler;
 import com.huobi.client.SubscriptionListener;
-import com.huobi.client.impl.utils.Handler;
+import com.huobi.client.utils.Handler;
 
 public class WSRequest<T> {
   String name;

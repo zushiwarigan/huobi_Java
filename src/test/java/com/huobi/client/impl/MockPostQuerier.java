@@ -3,7 +3,7 @@
 //import static org.junit.Assert.assertNotNull;
 //import static org.junit.Assert.fail;
 //
-//import com.huobi.client.impl.utils.JsonWrapper;
+//import com.huobi.client.utils.JsonWrapper;
 //import java.io.IOException;
 //import java.io.OutputStream;
 //import java.nio.ByteBuffer;

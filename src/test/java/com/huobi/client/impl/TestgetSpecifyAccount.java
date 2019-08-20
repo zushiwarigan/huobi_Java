@@ -2,10 +2,10 @@
 //
 //import com.huobi.client.RequestOptions;
 //import com.huobi.client.exception.HuobiApiException;
-//import com.huobi.client.impl.utils.JsonWrapper;
+//import com.huobi.client.utils.JsonWrapper;
 //import com.huobi.client.model.CompleteSubAccountInfo;
-//import com.huobi.client.model.enums.AccountType;
-//import com.huobi.client.model.enums.BalanceType;
+//import com.huobi.client.enums.AccountType;
+//import com.huobi.client.enums.BalanceType;
 //
 //
 //import org.junit.Before;

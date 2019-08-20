@@ -1,6 +1,6 @@
 //package com.huobi.client.model;
 //
-//import com.huobi.client.model.enums.TradeOrFrozen;
+//import com.huobi.client.enums.TradeOrFrozen;
 //
 ///**
 // * summary sub-account info

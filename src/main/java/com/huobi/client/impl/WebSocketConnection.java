@@ -12,12 +12,12 @@ import okio.ByteString;
 
 import com.huobi.client.SubscriptionOptions;
 import com.huobi.client.exception.HuobiApiException;
-import com.huobi.client.impl.utils.InternalUtils;
-import com.huobi.client.impl.utils.JsonWrapper;
-import com.huobi.client.impl.utils.TimeService;
-import com.huobi.client.impl.utils.UrlParamsBuilder;
+import com.huobi.client.utils.InternalUtils;
+import com.huobi.client.utils.JsonWrapper;
+import com.huobi.client.utils.TimeService;
+import com.huobi.client.utils.UrlParamsBuilder;
 
-import static com.huobi.client.impl.utils.InternalUtils.decode;
+import static com.huobi.client.utils.InternalUtils.decode;
 
 
 @Slf4j

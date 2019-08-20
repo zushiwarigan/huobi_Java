@@ -4,14 +4,14 @@
 //import static org.junit.Assert.assertNull;
 //import static org.junit.Assert.assertTrue;
 //
-//import com.huobi.client.impl.utils.JsonWrapper;
-//import com.huobi.client.impl.utils.TimeService;
+//import com.huobi.client.utils.JsonWrapper;
+//import com.huobi.client.utils.TimeService;
 //import com.huobi.client.model.Account;
 //import com.huobi.client.model.User;
-//import com.huobi.client.model.enums.AccountType;
-//import com.huobi.client.model.enums.OrderSource;
-//import com.huobi.client.model.enums.OrderType;
-//import com.huobi.client.model.event.OrderUpdateEvent;
+//import com.huobi.client.enums.AccountType;
+//import com.huobi.client.enums.OrderSource;
+//import com.huobi.client.enums.OrderType;
+//import com.huobi.client.event.OrderUpdateEvent;
 //import java.math.BigDecimal;
 //import java.util.LinkedList;
 //import java.util.List;

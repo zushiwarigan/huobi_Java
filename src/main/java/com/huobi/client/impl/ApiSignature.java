@@ -1,7 +1,7 @@
 package com.huobi.client.impl;
 
 import com.huobi.client.exception.HuobiApiException;
-import com.huobi.client.impl.utils.UrlParamsBuilder;
+import com.huobi.client.utils.UrlParamsBuilder;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;

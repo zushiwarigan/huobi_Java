@@ -5,11 +5,11 @@
 //
 //import com.huobi.client.RequestOptions;
 //import com.huobi.client.exception.HuobiApiException;
-//import com.huobi.client.impl.utils.JsonWrapper;
+//import com.huobi.client.utils.JsonWrapper;
 //import com.huobi.client.model.EtfSwapConfig;
 //import com.huobi.client.model.EtfSwapHistory;
-//import com.huobi.client.model.enums.EtfStatus;
-//import com.huobi.client.model.enums.EtfSwapType;
+//import com.huobi.client.enums.EtfStatus;
+//import com.huobi.client.enums.EtfSwapType;
 //import java.math.BigDecimal;
 //import java.util.List;
 //import org.junit.Rule;

@@ -3,10 +3,10 @@
 //import static org.junit.Assert.assertEquals;
 //import static org.junit.Assert.assertTrue;
 //
-//import com.huobi.client.impl.utils.JsonWrapper;
-//import com.huobi.client.impl.utils.TimeService;
-//import com.huobi.client.model.enums.CandlestickInterval;
-//import com.huobi.client.model.event.CandlestickEvent;
+//import com.huobi.client.utils.JsonWrapper;
+//import com.huobi.client.utils.TimeService;
+//import com.huobi.client.enums.CandlestickInterval;
+//import com.huobi.client.event.CandlestickEvent;
 //import java.math.BigDecimal;
 //import java.util.LinkedList;
 //import java.util.List;

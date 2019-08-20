@@ -7,7 +7,7 @@
 //import org.powermock.core.classloader.annotations.PrepareForTest;
 //import org.powermock.modules.junit4.PowerMockRunner;
 //
-//import com.huobi.client.impl.utils.UrlParamsBuilder;
+//import com.huobi.client.utils.UrlParamsBuilder;
 //
 //import static org.junit.Assert.assertEquals;
 //

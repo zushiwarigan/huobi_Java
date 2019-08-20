@@ -2,11 +2,11 @@
 //
 //import com.huobi.client.RequestOptions;
 //import com.huobi.client.exception.HuobiApiException;
-//import com.huobi.client.impl.utils.JsonWrapper;
+//import com.huobi.client.utils.JsonWrapper;
 //
-//import com.huobi.client.model.request.TransferMasterRequest;
+//import com.huobi.client.request.TransferMasterRequest;
 //
-//import com.huobi.client.model.enums.TransferMasterType;
+//import com.huobi.client.enums.TransferMasterType;
 //
 //import org.junit.Before;
 //import org.junit.Rule;

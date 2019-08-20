@@ -1,7 +1,7 @@
 package com.huobi.client.model;
 
-import com.huobi.client.model.enums.AccountType;
-import com.huobi.client.model.enums.LoanOrderStates;
+import com.huobi.client.enums.AccountType;
+import com.huobi.client.enums.LoanOrderStates;
 import java.math.BigDecimal;
 
 /**

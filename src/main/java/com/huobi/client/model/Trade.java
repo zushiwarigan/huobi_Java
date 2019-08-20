@@ -1,6 +1,6 @@
 package com.huobi.client.model;
 
-import com.huobi.client.model.enums.TradeDirection;
+import com.huobi.client.enums.TradeDirection;
 import java.math.BigDecimal;
 
 /**

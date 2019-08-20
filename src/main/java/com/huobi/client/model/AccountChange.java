@@ -1,9 +1,9 @@
 package com.huobi.client.model;
 
 import com.huobi.client.SubscriptionListener;
-import com.huobi.client.model.enums.AccountType;
-import com.huobi.client.model.enums.BalanceMode;
-import com.huobi.client.model.enums.BalanceType;
+import com.huobi.client.enums.AccountType;
+import com.huobi.client.enums.BalanceMode;
+import com.huobi.client.enums.BalanceType;
 import java.math.BigDecimal;
 
 /**

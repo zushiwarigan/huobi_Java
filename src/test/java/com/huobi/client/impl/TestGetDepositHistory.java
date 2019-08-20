@@ -10,10 +10,10 @@
 //
 //import com.huobi.client.RequestOptions;
 //import com.huobi.client.exception.HuobiApiException;
-//import com.huobi.client.impl.utils.JsonWrapper;
-//import com.huobi.client.impl.utils.TimeService;
+//import com.huobi.client.utils.JsonWrapper;
+//import com.huobi.client.utils.TimeService;
 //import com.huobi.client.model.Deposit;
-//import com.huobi.client.model.enums.DepositState;
+//import com.huobi.client.enums.DepositState;
 //
 //import static org.junit.Assert.assertEquals;
 //import static org.junit.Assert.assertNotNull;

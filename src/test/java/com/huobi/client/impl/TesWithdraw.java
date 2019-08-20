@@ -6,8 +6,8 @@
 //
 //import com.huobi.client.RequestOptions;
 //import com.huobi.client.exception.HuobiApiException;
-//import com.huobi.client.impl.utils.JsonWrapper;
-//import com.huobi.client.model.request.WithdrawRequest;
+//import com.huobi.client.utils.JsonWrapper;
+//import com.huobi.client.request.WithdrawRequest;
 //import java.math.BigDecimal;
 //import org.junit.Before;
 //import org.junit.Rule;

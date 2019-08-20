@@ -4,8 +4,8 @@
 //import static org.junit.Assert.assertNotEquals;
 //
 //import com.huobi.client.exception.HuobiApiException;
-//import com.huobi.client.impl.utils.JsonWrapper;
-//import com.huobi.client.impl.utils.JsonWrapperArray;
+//import com.huobi.client.utils.JsonWrapper;
+//import com.huobi.client.utils.JsonWrapperArray;
 //import java.math.BigDecimal;
 //import org.junit.Rule;
 //import org.junit.Test;

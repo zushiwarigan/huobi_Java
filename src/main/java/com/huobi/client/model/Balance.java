@@ -1,6 +1,6 @@
 package com.huobi.client.model;
 
-import com.huobi.client.model.enums.BalanceType;
+import com.huobi.client.enums.BalanceType;
 import java.math.BigDecimal;
 
 /**

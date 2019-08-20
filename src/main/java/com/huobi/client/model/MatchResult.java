@@ -1,7 +1,7 @@
 package com.huobi.client.model;
 
-import com.huobi.client.model.enums.OrderSource;
-import com.huobi.client.model.enums.OrderType;
+import com.huobi.client.enums.OrderSource;
+import com.huobi.client.enums.OrderType;
 import java.math.BigDecimal;
 
 /**

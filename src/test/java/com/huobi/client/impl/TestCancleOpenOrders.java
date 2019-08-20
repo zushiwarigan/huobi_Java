@@ -6,12 +6,12 @@
 //
 //import com.huobi.client.RequestOptions;
 //import com.huobi.client.exception.HuobiApiException;
-//import com.huobi.client.impl.utils.JsonWrapper;
+//import com.huobi.client.utils.JsonWrapper;
 //import com.huobi.client.model.Account;
 //import com.huobi.client.model.BatchCancelResult;
 //import com.huobi.client.model.User;
-//import com.huobi.client.model.enums.AccountType;
-//import com.huobi.client.model.request.CancelOpenOrderRequest;
+//import com.huobi.client.enums.AccountType;
+//import com.huobi.client.request.CancelOpenOrderRequest;
 //import java.util.LinkedList;
 //import java.util.List;
 //import org.junit.Before;

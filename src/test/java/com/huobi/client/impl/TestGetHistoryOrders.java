@@ -7,15 +7,15 @@
 //
 //import com.huobi.client.RequestOptions;
 //import com.huobi.client.exception.HuobiApiException;
-//import com.huobi.client.impl.utils.JsonWrapper;
-//import com.huobi.client.impl.utils.TimeService;
+//import com.huobi.client.utils.JsonWrapper;
+//import com.huobi.client.utils.TimeService;
 //import com.huobi.client.model.Account;
 //import com.huobi.client.model.Order;
-//import com.huobi.client.model.enums.AccountType;
-//import com.huobi.client.model.enums.OrderSource;
-//import com.huobi.client.model.enums.OrderState;
-//import com.huobi.client.model.enums.OrderType;
-//import com.huobi.client.model.request.HistoricalOrdersRequest;
+//import com.huobi.client.enums.AccountType;
+//import com.huobi.client.enums.OrderSource;
+//import com.huobi.client.enums.OrderState;
+//import com.huobi.client.enums.OrderType;
+//import com.huobi.client.request.HistoricalOrdersRequest;
 //import java.math.BigDecimal;
 //import java.text.SimpleDateFormat;
 //import java.util.Date;

@@ -1,6 +1,6 @@
 package com.huobi.client.model;
 
-import com.huobi.client.model.enums.EtfSwapType;
+import com.huobi.client.enums.EtfSwapType;
 import java.math.BigDecimal;
 import java.util.List;
 

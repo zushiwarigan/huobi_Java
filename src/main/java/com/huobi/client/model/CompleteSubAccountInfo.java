@@ -1,6 +1,6 @@
 package com.huobi.client.model;
 
-import com.huobi.client.model.enums.AccountType;
+import com.huobi.client.enums.AccountType;
 
 
 import java.util.List;

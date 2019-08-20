@@ -6,7 +6,7 @@
 //
 //import com.huobi.client.RequestOptions;
 //import com.huobi.client.exception.HuobiApiException;
-//import com.huobi.client.impl.utils.JsonWrapper;
+//import com.huobi.client.utils.JsonWrapper;
 //import org.junit.Before;
 //import org.junit.Rule;
 //import org.junit.Test;

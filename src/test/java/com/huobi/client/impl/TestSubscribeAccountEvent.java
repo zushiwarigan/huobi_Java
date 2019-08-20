@@ -5,15 +5,15 @@
 //import static org.junit.Assert.assertTrue;
 //
 //import com.huobi.client.SubscriptionOptions;
-//import com.huobi.client.impl.utils.JsonWrapper;
-//import com.huobi.client.impl.utils.TimeService;
+//import com.huobi.client.utils.JsonWrapper;
+//import com.huobi.client.utils.TimeService;
 //import com.huobi.client.model.Account;
 //import com.huobi.client.model.User;
-//import com.huobi.client.model.enums.AccountChangeType;
-//import com.huobi.client.model.enums.AccountType;
-//import com.huobi.client.model.enums.BalanceMode;
-//import com.huobi.client.model.enums.BalanceType;
-//import com.huobi.client.model.event.AccountEvent;
+//import com.huobi.client.enums.AccountChangeType;
+//import com.huobi.client.enums.AccountType;
+//import com.huobi.client.enums.BalanceMode;
+//import com.huobi.client.enums.BalanceType;
+//import com.huobi.client.event.AccountEvent;
 //import java.math.BigDecimal;
 //import java.util.LinkedList;
 //import java.util.List;

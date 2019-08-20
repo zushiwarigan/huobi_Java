@@ -1,6 +1,6 @@
 package com.huobi.client.model;
 
-import com.huobi.client.model.enums.DepositState;
+import com.huobi.client.enums.DepositState;
 import java.math.BigDecimal;
 
 /**

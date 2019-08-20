@@ -3,7 +3,7 @@
 //import static org.junit.Assert.assertEquals;
 //
 //import com.huobi.client.exception.HuobiApiException;
-//import com.huobi.client.impl.utils.EnumLookup;
+//import com.huobi.client.utils.EnumLookup;
 //import org.junit.Rule;
 //import org.junit.Test;
 //import org.junit.rules.ExpectedException;

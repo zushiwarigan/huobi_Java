@@ -5,7 +5,7 @@
 //
 //import com.huobi.client.RequestOptions;
 //import com.huobi.client.exception.HuobiApiException;
-//import com.huobi.client.impl.utils.JsonWrapper;
+//import com.huobi.client.utils.JsonWrapper;
 //import com.huobi.client.model.Symbol;
 //import java.util.List;
 //import okhttp3.Request;

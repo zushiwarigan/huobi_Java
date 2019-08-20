@@ -6,10 +6,10 @@
 //
 //import com.huobi.client.RequestOptions;
 //import com.huobi.client.exception.HuobiApiException;
-//import com.huobi.client.impl.utils.JsonWrapper;
-//import com.huobi.client.impl.utils.TimeService;
+//import com.huobi.client.utils.JsonWrapper;
+//import com.huobi.client.utils.TimeService;
 //import com.huobi.client.model.Trade;
-//import com.huobi.client.model.enums.TradeDirection;
+//import com.huobi.client.enums.TradeDirection;
 //import java.math.BigDecimal;
 //import java.util.List;
 //import okhttp3.Request;

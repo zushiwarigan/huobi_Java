@@ -3,11 +3,11 @@ package com.huobi.client.impl;
 import com.huobi.client.AsyncResult;
 import com.huobi.client.ResponseCallback;
 import com.huobi.client.exception.HuobiApiException;
-import com.huobi.client.impl.utils.EtfResult;
-import com.huobi.client.impl.utils.FailedAsyncResult;
-import com.huobi.client.impl.utils.JsonWrapper;
-import com.huobi.client.impl.utils.SucceededAsyncResult;
-import com.huobi.client.model.enums.EtfStatus;
+import com.huobi.client.utils.EtfResult;
+import com.huobi.client.utils.FailedAsyncResult;
+import com.huobi.client.utils.JsonWrapper;
+import com.huobi.client.utils.SucceededAsyncResult;
+
 import java.io.IOException;
 import okhttp3.Call;
 import okhttp3.Callback;

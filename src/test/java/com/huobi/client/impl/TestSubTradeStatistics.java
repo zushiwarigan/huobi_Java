@@ -4,9 +4,9 @@
 //import static org.junit.Assert.assertTrue;
 //
 //import com.huobi.client.exception.HuobiApiException;
-//import com.huobi.client.impl.utils.JsonWrapper;
-//import com.huobi.client.impl.utils.TimeService;
-//import com.huobi.client.model.event.TradeStatisticsEvent;
+//import com.huobi.client.utils.JsonWrapper;
+//import com.huobi.client.utils.TimeService;
+//import com.huobi.client.event.TradeStatisticsEvent;
 //import java.math.BigDecimal;
 //import java.util.LinkedList;
 //import java.util.List;

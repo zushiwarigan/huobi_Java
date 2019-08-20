@@ -4,14 +4,14 @@ import java.util.List;
 
 import com.huobi.client.SubscriptionErrorHandler;
 import com.huobi.client.SubscriptionListener;
-import com.huobi.client.impl.utils.Channels;
-import com.huobi.client.impl.utils.JsonWrapper;
-import com.huobi.client.impl.utils.TimeService;
+import com.huobi.client.utils.Channels;
+import com.huobi.client.utils.JsonWrapper;
+import com.huobi.client.utils.TimeService;
 import com.huobi.client.model.Candlestick;
-import com.huobi.client.model.enums.CandlestickInterval;
-import com.huobi.client.model.message.CandlestickMessage;
+import com.huobi.client.enums.CandlestickInterval;
+import com.huobi.client.message.CandlestickMessage;
 
-import static com.huobi.client.impl.utils.InternalUtils.await;
+import static com.huobi.client.utils.InternalUtils.await;
 
 public class WSRequestImpl {
 

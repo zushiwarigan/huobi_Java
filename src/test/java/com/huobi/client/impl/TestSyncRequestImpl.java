@@ -12,8 +12,8 @@
 //import com.huobi.client.model.Symbol;
 //import com.huobi.client.model.Trade;
 //import com.huobi.client.model.TradeStatistics;
-//import com.huobi.client.model.enums.CandlestickInterval;
-//import com.huobi.client.model.request.CandlestickRequest;
+//import com.huobi.client.enums.CandlestickInterval;
+//import com.huobi.client.request.CandlestickRequest;
 //import java.math.BigDecimal;
 //import java.util.LinkedList;
 //import java.util.List;

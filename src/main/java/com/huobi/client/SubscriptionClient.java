@@ -1,14 +1,14 @@
 package com.huobi.client;
 
 import com.huobi.client.impl.HuobiApiInternalFactory;
-import com.huobi.client.model.enums.BalanceMode;
-import com.huobi.client.model.enums.CandlestickInterval;
-import com.huobi.client.model.event.AccountEvent;
-import com.huobi.client.model.event.CandlestickEvent;
-import com.huobi.client.model.event.OrderUpdateEvent;
-import com.huobi.client.model.event.PriceDepthEvent;
-import com.huobi.client.model.event.TradeEvent;
-import com.huobi.client.model.event.TradeStatisticsEvent;
+import com.huobi.client.enums.BalanceMode;
+import com.huobi.client.enums.CandlestickInterval;
+import com.huobi.client.event.AccountEvent;
+import com.huobi.client.event.CandlestickEvent;
+import com.huobi.client.event.OrderUpdateEvent;
+import com.huobi.client.event.PriceDepthEvent;
+import com.huobi.client.event.TradeEvent;
+import com.huobi.client.event.TradeStatisticsEvent;
 
 /***
  * The subscription client interface, it is used for subscribing any market data update and

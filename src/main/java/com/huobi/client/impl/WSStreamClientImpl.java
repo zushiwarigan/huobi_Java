@@ -9,8 +9,8 @@ import com.huobi.client.SubscribeClient;
 import com.huobi.client.SubscribeOption;
 import com.huobi.client.SubscriptionErrorHandler;
 import com.huobi.client.SubscriptionListener;
-import com.huobi.client.model.enums.CandlestickInterval;
-import com.huobi.client.model.message.CandlestickMessage;
+import com.huobi.client.enums.CandlestickInterval;
+import com.huobi.client.message.CandlestickMessage;
 
 public class WSStreamClientImpl implements SubscribeClient {
 

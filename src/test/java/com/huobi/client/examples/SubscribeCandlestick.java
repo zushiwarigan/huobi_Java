@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import com.huobi.client.SubscribeClient;
 import com.huobi.client.SubscriptionClient;
-import com.huobi.client.model.enums.CandlestickInterval;
+import com.huobi.client.enums.CandlestickInterval;
 
 
 @Slf4j

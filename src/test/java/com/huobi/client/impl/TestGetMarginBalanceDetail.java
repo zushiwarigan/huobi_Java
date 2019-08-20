@@ -6,13 +6,13 @@
 //
 //import com.huobi.client.RequestOptions;
 //import com.huobi.client.exception.HuobiApiException;
-//import com.huobi.client.impl.utils.JsonWrapper;
+//import com.huobi.client.utils.JsonWrapper;
 //import com.huobi.client.model.Balance;
 //import com.huobi.client.model.MarginBalanceDetail;
-//import com.huobi.client.model.enums.AccountState;
-//import com.huobi.client.model.enums.AccountType;
-//import com.huobi.client.model.enums.BalanceType;
-//import com.huobi.client.model.request.LoanOrderRequest;
+//import com.huobi.client.enums.AccountState;
+//import com.huobi.client.enums.AccountType;
+//import com.huobi.client.enums.BalanceType;
+//import com.huobi.client.request.LoanOrderRequest;
 //import java.math.BigDecimal;
 //import java.util.List;
 //import okhttp3.Request;

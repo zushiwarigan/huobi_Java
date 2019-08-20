@@ -15,7 +15,7 @@
 //
 //import com.huobi.client.AsyncResult;
 //import com.huobi.client.ResponseCallback;
-//import com.huobi.client.impl.utils.SucceededAsyncResult;
+//import com.huobi.client.utils.SucceededAsyncResult;
 //import com.huobi.client.model.ExchangeInfo;
 //import com.huobi.client.model.Symbol;
 //import com.huobi.client.model.Trade;

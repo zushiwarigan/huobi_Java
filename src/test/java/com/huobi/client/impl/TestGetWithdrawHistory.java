@@ -6,10 +6,10 @@
 //
 //import com.huobi.client.RequestOptions;
 //import com.huobi.client.exception.HuobiApiException;
-//import com.huobi.client.impl.utils.JsonWrapper;
-//import com.huobi.client.impl.utils.TimeService;
+//import com.huobi.client.utils.JsonWrapper;
+//import com.huobi.client.utils.TimeService;
 //import com.huobi.client.model.Withdraw;
-//import com.huobi.client.model.enums.WithdrawState;
+//import com.huobi.client.enums.WithdrawState;
 //import java.math.BigDecimal;
 //import java.util.List;
 //import org.junit.Before;

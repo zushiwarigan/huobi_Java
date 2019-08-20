@@ -6,10 +6,10 @@
 //
 //import com.huobi.client.RequestOptions;
 //import com.huobi.client.exception.HuobiApiException;
-//import com.huobi.client.impl.utils.JsonWrapper;
+//import com.huobi.client.utils.JsonWrapper;
 //import com.huobi.client.model.Account;
-//import com.huobi.client.model.enums.AccountState;
-//import com.huobi.client.model.enums.AccountType;
+//import com.huobi.client.enums.AccountState;
+//import com.huobi.client.enums.AccountType;
 //import java.util.List;
 //import org.junit.Before;
 //import org.junit.Rule;

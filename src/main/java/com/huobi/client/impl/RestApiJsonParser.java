@@ -1,6 +1,6 @@
 package com.huobi.client.impl;
 
-import com.huobi.client.impl.utils.JsonWrapper;
+import com.huobi.client.utils.JsonWrapper;
 
 @FunctionalInterface
 interface RestApiJsonParser<T> {

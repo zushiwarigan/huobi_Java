@@ -2,9 +2,9 @@
 //
 //import static org.junit.Assert.assertEquals;
 //
-//import com.huobi.client.impl.utils.Channels;
-//import com.huobi.client.impl.utils.TimeService;
-//import com.huobi.client.model.enums.CandlestickInterval;
+//import com.huobi.client.utils.Channels;
+//import com.huobi.client.utils.TimeService;
+//import com.huobi.client.enums.CandlestickInterval;
 //import org.junit.Test;
 //import org.junit.runner.RunWith;
 //import org.powermock.api.mockito.PowerMockito;

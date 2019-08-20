@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import com.huobi.client.SubscriptionClient;
 import com.huobi.client.SubscriptionOptions;
 import com.huobi.client.model.AccountChange;
-import com.huobi.client.model.enums.BalanceMode;
+import com.huobi.client.enums.BalanceMode;
 
 
 @Slf4j

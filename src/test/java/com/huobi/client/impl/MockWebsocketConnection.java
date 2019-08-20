@@ -2,7 +2,7 @@ package com.huobi.client.impl;
 
 import com.huobi.client.SubscriptionOptions;
 import com.huobi.client.exception.HuobiApiException;
-import com.huobi.client.impl.utils.JsonWrapper;
+import com.huobi.client.utils.JsonWrapper;
 import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
 import java.util.zip.GZIPOutputStream;

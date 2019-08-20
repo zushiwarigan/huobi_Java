@@ -5,7 +5,7 @@
 //import org.junit.rules.ExpectedException;
 //
 //import com.huobi.client.RequestOptions;
-//import com.huobi.client.model.enums.EtfSwapType;
+//import com.huobi.client.enums.EtfSwapType;
 //
 //import static org.junit.Assert.assertEquals;
 //import static org.junit.Assert.assertNotNull;
