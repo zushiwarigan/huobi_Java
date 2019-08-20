@@ -3,3 +3,6 @@ logs/
 target
 *.iml
 *.tmp
+.gradle/
+build/
+
