@@ -187,6 +187,7 @@ public interface SubscriptionClient {
    *
    * @return The instance of synchronous client.
    */
+  @Deprecated
   static SubscriptionClient create() {
     return create("", "", new SubscriptionOptions());
   }

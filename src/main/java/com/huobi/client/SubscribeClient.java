@@ -1,9 +1,9 @@
 package com.huobi.client;
 
-import com.huobi.client.impl.HuobiApiInternalFactory;
 import com.huobi.client.enums.BalanceMode;
-import com.huobi.client.enums.CandlestickInterval;
+import com.huobi.client.impl.HuobiApiInternalFactory;
 import com.huobi.client.message.CandlestickMessage;
+import com.huobi.gateway.enums.CandlestickIntervalEnum;
 
 /***
  * The subscription client interface, it is used for subscribing any market data update and
@@ -21,7 +21,7 @@ public interface SubscribeClient {
    * @param interval The candlestick/kline interval, MIN1, MIN5, DAY1 etc.
    * @param callback The implementation is required. onReceive will be called if receive server's update.
    */
-  void subscribeCandlestick(String symbols, CandlestickInterval interval,
+  void subscribeCandlestick(String symbols, CandlestickIntervalEnum interval,
       SubscriptionListener<CandlestickMessage> callback);
 
   /**
@@ -33,7 +33,7 @@ public interface SubscribeClient {
    * @param callback The implementation is required. onReceive will be called if receive server's update.
    * @param errorHandler The error handler will be called if subscription failed or error happen between client and Huobi server.
    */
-  void subscribeCandlestick(String symbols, CandlestickInterval interval,
+  void subscribeCandlestick(String symbols, CandlestickIntervalEnum interval,
       SubscriptionListener<CandlestickMessage> callback,
       SubscriptionErrorHandler errorHandler);
 

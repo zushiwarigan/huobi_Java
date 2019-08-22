@@ -1,8 +1,14 @@
 package com.huobi.client.enums;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.ToString;
+
 /**
  * 1min, 5min, 15min, 30min, 60min, 1day, 1mon, 1week, 1year
  */
+@AllArgsConstructor
+@ToString
 public enum CandlestickInterval {
   MIN1("1min"),
   MIN5("5min"),
@@ -14,14 +20,6 @@ public enum CandlestickInterval {
   WEEK1("1week"),
   YEAR1("1year");
 
+  @Getter
   private final String code;
-
-  CandlestickInterval(String code) {
-    this.code = code;
-  }
-
-  @Override
-  public String toString() {
-    return code;
-  }
 }

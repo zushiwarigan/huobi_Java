@@ -9,8 +9,8 @@ import com.huobi.client.SubscribeClient;
 import com.huobi.client.SubscribeOption;
 import com.huobi.client.SubscriptionErrorHandler;
 import com.huobi.client.SubscriptionListener;
-import com.huobi.client.enums.CandlestickInterval;
 import com.huobi.client.message.CandlestickMessage;
+import com.huobi.gateway.enums.CandlestickIntervalEnum;
 
 public class WSStreamClientImpl implements SubscribeClient {
 
@@ -53,7 +53,7 @@ public class WSStreamClientImpl implements SubscribeClient {
   @Override
   public void subscribeCandlestick(
       String symbols,
-      CandlestickInterval interval,
+      CandlestickIntervalEnum interval,
       SubscriptionListener<CandlestickMessage> callback) {
     subscribeCandlestick(symbols, interval, callback, null);
   }
@@ -61,7 +61,7 @@ public class WSStreamClientImpl implements SubscribeClient {
   @Override
   public void subscribeCandlestick(
       String symbols,
-      CandlestickInterval interval,
+      CandlestickIntervalEnum interval,
       SubscriptionListener<CandlestickMessage> subscriptionListener,
       SubscriptionErrorHandler errorHandler) {
     createConnection(requestImpl.subscribeCandlestick(

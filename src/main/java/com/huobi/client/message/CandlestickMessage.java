@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import com.huobi.client.model.Candlestick;
-import com.huobi.client.enums.CandlestickInterval;
+import com.huobi.gateway.enums.CandlestickIntervalEnum;
 
 /**
  * The candlestick/kline data received by subscription of candlestick/kline.
@@ -26,9 +26,9 @@ public class CandlestickMessage {
    */
   private long timestamp;
   /**
-   * Get candlestick/kline interval you subscribed. see {@link CandlestickInterval}
+   * Get candlestick/kline interval you subscribed. see {@link CandlestickIntervalEnum}
    */
-  private CandlestickInterval interval;
+  private CandlestickIntervalEnum interval;
 
   /**
    * Get the data of candlestick/kline see {@link Candlestick}

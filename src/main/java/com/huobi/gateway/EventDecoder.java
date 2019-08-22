@@ -245,7 +245,7 @@ public class EventDecoder {
     return null;
   }
 
-  static class R {
+  public static class R {
 
     @JsonProperty("act")
     public String action;
@@ -258,7 +258,7 @@ public class EventDecoder {
     public String message;
   }
 
-  static class AggrTrades {
+  public static class AggrTrades {
 
     public String symbol;
     public long firstTradeId;
@@ -269,7 +269,7 @@ public class EventDecoder {
     public SideEnum side;
   }
 
-  static class Trades {
+  public static class Trades {
 
     public String symbol;
     public long tradeId;
@@ -279,7 +279,7 @@ public class EventDecoder {
     public SideEnum side;
   }
 
-  static class ReqTrade {
+  public static class ReqTrade {
 
     public String symbol;
     public List<Tick> trades;
@@ -294,7 +294,7 @@ public class EventDecoder {
     }
   }
 
-  static class Depth {
+  public static class Depth {
 
     public String symbol;
     public boolean delta;
@@ -302,7 +302,7 @@ public class EventDecoder {
     public List<DepthTick> asks = new ArrayList<>();
   }
 
-  static class DepthTick {
+  public static class DepthTick {
 
     public String price;
     public String size;
@@ -313,13 +313,13 @@ public class EventDecoder {
     }
   }
 
-  static class Overview {
+  public static class Overview {
 
     public long ts;
     public List<OverviewTick> ticks = new ArrayList<>();
   }
 
-  static class OverviewTick {
+  public static class OverviewTick {
 
     public String symbol;
     public String open;
@@ -331,7 +331,7 @@ public class EventDecoder {
     public String turnover;
   }
 
-  static class Candlestick {
+  public static class Candlestick {
 
     public long id;
     public String symbol;
@@ -345,7 +345,7 @@ public class EventDecoder {
     public String turnover;
   }
 
-  static class ReqCandlestick {
+  public static class ReqCandlestick {
 
     public String symbol;
     public List<Tick> candlesticks;
@@ -364,7 +364,7 @@ public class EventDecoder {
     }
   }
 
-  static class Summary {
+  public static class Summary {
 
     public long id;
     public String symbol;
@@ -378,7 +378,7 @@ public class EventDecoder {
     public String turnover;
   }
 
-  static class Ping {
+  public static class Ping {
 
     public long ts;
   }

@@ -6,10 +6,11 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
+import lombok.AllArgsConstructor;
 
 import com.huobi.client.exception.HuobiApiException;
 
-
+@AllArgsConstructor
 public class JsonWrapper {
 
   private final JSONObject json;
@@ -29,10 +30,6 @@ public class JsonWrapper {
     } catch (Exception e) {
       throw new HuobiApiException(HuobiApiException.RUNTIME_ERROR, "[Json] " + e.getMessage());
     }
-  }
-
-  public JsonWrapper(JSONObject json) {
-    this.json = json;
   }
 
   private void checkMandatoryField(String name) {

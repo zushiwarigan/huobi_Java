@@ -8,7 +8,7 @@ public abstract class Channels {
 
   public static String klineChannel(String symbol, CandlestickInterval interval) {
     JSONObject json = new JSONObject();
-    json.put("sub", "market." + symbol + ".kline." + interval.toString());
+    json.put("sub", "market." + symbol + ".kline." + interval.getCode());
     json.put("id", TimeService.getCurrentTimeStamp() + "");
     return json.toJSONString();
   }

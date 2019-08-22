@@ -1,30 +1,32 @@
 package com.huobi.client.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
+
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import com.huobi.client.SubscriptionErrorHandler;
 import com.huobi.client.SubscriptionListener;
-import com.huobi.client.utils.Channels;
-import com.huobi.client.utils.JsonWrapper;
-import com.huobi.client.utils.TimeService;
-import com.huobi.client.model.Candlestick;
-import com.huobi.client.enums.CandlestickInterval;
 import com.huobi.client.message.CandlestickMessage;
+import com.huobi.client.model.Candlestick;
+import com.huobi.client.utils.ChannelUtil;
+import com.huobi.client.utils.TimeService;
+import com.huobi.gateway.EventDecoder;
+import com.huobi.gateway.enums.CandlestickIntervalEnum;
 
 import static com.huobi.client.utils.InternalUtils.await;
 
+
+@Slf4j
+@AllArgsConstructor
 public class WSRequestImpl {
 
   private final String apiKey;
 
-  public WSRequestImpl(String apiKey) {
-    this.apiKey = apiKey;
-  }
-
-
   public WSRequest<CandlestickMessage> subscribeCandlestick(
       List<String> symbols,
-      CandlestickInterval interval,
+      CandlestickIntervalEnum interval,
       SubscriptionListener<CandlestickMessage> subscriptionListener,
       SubscriptionErrorHandler errorHandler) {
     InputChecker.checker()
@@ -38,31 +40,30 @@ public class WSRequestImpl {
     } else {
       request.name = "Candlestick for " + symbols + " ...";
     }
+
     request.connectionHandler = (connection) ->
         symbols.stream()
-            .map((symbol) -> Channels.klineChannel(symbol, interval))
+            .map((symbol) -> ChannelUtil.candlestickChannel(symbol, interval))
             .forEach(req -> {
               connection.send(req);
               await(1);
             });
-    request.jsonParser = (jsonWrapper) -> {
-      String ch = jsonWrapper.getString("ch");
-      ChannelParser parser = new ChannelParser(ch);
+    request.rParser = (r) -> {
+      EventDecoder.Candlestick d = (EventDecoder.Candlestick) r.data;
       CandlestickMessage candlestickMessage = new CandlestickMessage();
-      candlestickMessage.setSymbol(parser.getSymbol());
+      candlestickMessage.setSymbol(d.symbol);
       candlestickMessage.setInterval(interval);
       candlestickMessage.setTimestamp(
-          TimeService.convertCSTInMillisecondToUTC(jsonWrapper.getLong("ts")));
-      JsonWrapper tick = jsonWrapper.getJsonObject("tick");
+          TimeService.convertCSTInMillisecondToUTC(d.ts));
       Candlestick data = new Candlestick();
-      data.setTimestamp(TimeService.convertCSTInSecondToUTC(tick.getLong("id")));
-      data.setOpen(tick.getBigDecimal("open"));
-      data.setClose(tick.getBigDecimal("close"));
-      data.setLow(tick.getBigDecimal("low"));
-      data.setHigh(tick.getBigDecimal("high"));
-      data.setAmount(tick.getBigDecimal("amount"));
-      data.setCount(tick.getLong("count"));
-      data.setVolume(tick.getBigDecimal("vol"));
+      data.setTimestamp(TimeService.convertCSTInSecondToUTC(d.ts));
+      data.setOpen(new BigDecimal(d.open));
+      data.setClose(new BigDecimal(d.close));
+      data.setLow(new BigDecimal(d.low));
+      data.setHigh(new BigDecimal(d.high));
+      data.setAmount(new BigDecimal(d.turnover));
+      data.setCount(d.numOfTrades);
+      data.setVolume(new BigDecimal(d.volume));
       candlestickMessage.setData(data);
       return candlestickMessage;
     };

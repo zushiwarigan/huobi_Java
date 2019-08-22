@@ -3,6 +3,7 @@ package com.huobi.client.impl;
 import java.io.IOException;
 import java.net.URI;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -46,6 +47,7 @@ public class WebSocketConnection extends WebSocketListener {
   private static final int CLOSE_CODE_1002 = 1002;
   private WebSocket webSocket = null;
 
+  @Getter
   private volatile long lastReceivedTime = 0;
 
   private volatile ConnectionState state = ConnectionState.IDLE;
@@ -56,6 +58,8 @@ public class WebSocketConnection extends WebSocketListener {
   private final String apiKey;
   private final String secretKey;
   private final WebSocketWatchDog watchDog;
+
+  @Getter
   private final int connectionId;
 
   private String subscriptionMarketUrl = "wss://api.huobi.pro/ws";
@@ -95,9 +99,6 @@ public class WebSocketConnection extends WebSocketListener {
         + "] created for " + request.name);
   }
 
-  int getConnectionId() {
-    return this.connectionId;
-  }
 
   void connect() {
     if (state == ConnectionState.CONNECTED) {
@@ -125,10 +126,6 @@ public class WebSocketConnection extends WebSocketListener {
     } else {
       connect();
     }
-  }
-
-  long getLastReceivedTime() {
-    return this.lastReceivedTime;
   }
 
   void send(String str) {

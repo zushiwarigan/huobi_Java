@@ -1,6 +1,9 @@
 package com.huobi.client.impl;
 
+import java.io.IOException;
 import java.net.URI;
+
+import com.google.gson.Gson;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -11,11 +14,16 @@ import okhttp3.WebSocketListener;
 import okio.ByteString;
 
 import com.huobi.client.SubscribeOption;
+import com.huobi.client.base.CommonConstant;
 import com.huobi.client.exception.HuobiApiException;
+import com.huobi.client.message.PongMessage;
 import com.huobi.client.utils.InternalUtils;
-import com.huobi.client.utils.JsonWrapper;
 import com.huobi.client.utils.TimeService;
 import com.huobi.client.utils.UrlParamsBuilder;
+import com.huobi.gateway.EventDecoder;
+import com.huobi.gateway.EventDecoder.R;
+import com.huobi.gateway.constant.Const;
+import com.huobi.gateway.protocol.MarketDownstreamProtocol.Action;
 
 
 @Slf4j
@@ -65,6 +73,10 @@ public class WSConnection extends WebSocketListener {
   private String subscriptionMarketUrl = "ws://huobi-gateway.test-12.huobiapps.com/ws";
   private String subscriptionTradingUrl = "ws://huobi-gateway.test-12.huobiapps.com/ws/v1";
   private String tradingHost;
+  private String scheme = "ws://";
+  private String marketUrl = "/ws";
+  private String tradingUrl = "/ws/v1";
+  private String apiUrl = "/api/ws";
 
   public WSConnection(
       String apiKey,
@@ -79,31 +91,29 @@ public class WSConnection extends WebSocketListener {
     try {
       String host = new URI(options.getUri()).getHost();
       this.tradingHost = host;
-      if (host.indexOf("api") == 0) {
-//        this.subscriptionMarketUrl = "wss://" + host + "/ws";
-//        this.subscriptionTradingUrl = "wss://" + host + "/ws/v1";
-        this.subscriptionMarketUrl = "ws://" + host + "/ws";
-        this.subscriptionTradingUrl = "ws://" + host + "/ws/v1";
-      } else {
-//        this.subscriptionMarketUrl = "wss://" + host + "/api/ws";
-//        this.subscriptionTradingUrl = "wss://" + host + "/ws/v1";
-        this.subscriptionMarketUrl = "ws://" + host + "/api/ws";
-        this.subscriptionTradingUrl = "ws://" + host + "/ws/v1";
-      }
+//      if (host.indexOf("api") == 0) {
+        this.subscriptionMarketUrl = scheme + host + marketUrl;
+        this.subscriptionTradingUrl = scheme + host + tradingUrl;
+//      } else {
+//        this.subscriptionMarketUrl = scheme + host + apiUrl;
+//        this.subscriptionTradingUrl = scheme + host + tradingUrl;
+//      }
     } catch (Exception e) {
       log.info(e.getMessage());
     }
-
+    
     this.okhttpRequest = request.authHandler == null
-        ? new Request.Builder().url(subscriptionMarketUrl).addHeader("exchangeCode", "pro").addHeader("X-HB-Codec", "protobuf").build()
-        : new Request.Builder().url(subscriptionTradingUrl).addHeader("exchangeCode", "pro").addHeader("X-HB-Codec", "protobuf").build();
+        ? new Request.Builder().url(subscriptionMarketUrl).addHeader(Const.EXCHANGE_CODE, Const.EXCHANGE_PRO_CODE)
+        .addHeader(Const.CODEC, CommonConstant.CODEC_PROTOBUF).build()
+        : new Request.Builder().url(subscriptionTradingUrl).addHeader(Const.EXCHANGE_CODE, Const.EXCHANGE_PRO_CODE)
+            .addHeader(Const.CODEC, CommonConstant.CODEC_PROTOBUF).build();
     this.watchDog = watchDog;
     log.info("[Sub] Connection [id: "
         + this.connectionId
         + "] created for " + request.name);
   }
 
-  public void connect() {
+  void connect() {
     if (state == ConnectionState.CONNECTED) {
       log.info("[Sub][" + this.connectionId + "] Already connected");
       return;
@@ -163,40 +173,20 @@ public class WSConnection extends WebSocketListener {
 
       lastReceivedTime = TimeService.getCurrentTimeStamp();
 
-      String data;
-//      try {
-//        data = new String(decode(bytes.toByteArray()));
-//      } catch (IOException e) {
-//        log.error("[Sub][" + this.connectionId
-//            + "] Receive message error: " + e.getMessage());
-//        closeOnError();
-//        return;
-//      }
-//      JsonWrapper jsonWrapper = JsonWrapper.parseFromString(data);
-//      if (jsonWrapper.containKey("status") && !"ok".equals(jsonWrapper.getString("status"))) {
-//        String errorCode = jsonWrapper.getStringOrDefault("err-code", "");
-//        String errorMsg = jsonWrapper.getStringOrDefault("err-msg", "");
-//        onError(errorCode + ": " + errorMsg, null);
-//        log.error("[Sub][" + this.connectionId
-//            + "] Got error from server: " + errorCode + "; " + errorMsg);
-//        close();
-//      } else if (jsonWrapper.containKey("op")) {
-//        String op = jsonWrapper.getString("op");
-//        if (op.equals("notify")) {
-//          onReceive(jsonWrapper);
-//        } else if (op.equals("ping")) {
-//          processPingOnTradingLine(jsonWrapper, webSocket);
-//        } else if (op.equals("auth")) {
-//          if (request.authHandler != null) {
-//            request.authHandler.handle(this);
-//          }
-//        }
-//      } else if (jsonWrapper.containKey("ch")) {
-//        onReceive(jsonWrapper);
-//      } else if (jsonWrapper.containKey("ping")) {
-//        processPingOnMarketLine(jsonWrapper, webSocket);
-//      } else if (jsonWrapper.containKey("subbed")) {
-//      }
+      R r;
+      try {
+        r = EventDecoder.decode(bytes.toByteArray());
+      } catch (IOException e) {
+        log.error("[Sub][" + this.connectionId
+            + "] Receive message error: " + e.getMessage());
+        closeOnError();
+        return;
+      }
+      if (r.action.equals(Action.PING.toString())) {
+        processPingOnMarketLine(webSocket, r);
+      } else if (r.action.equals(Action.PUSH.toString())) {
+        onReceive(r);
+      }
     } catch (Exception e) {
       log.error("[Sub][" + this.connectionId
           + "] Unexpected error: " + e.getMessage());
@@ -214,10 +204,10 @@ public class WSConnection extends WebSocketListener {
   }
 
   @SuppressWarnings("unchecked")
-  private void onReceive(JsonWrapper jsonWrapper) {
+  private void onReceive(R r) {
     Object obj = null;
     try {
-      obj = request.jsonParser.parseJson(jsonWrapper);
+      obj = request.rParser.parseR(r);
     } catch (Exception e) {
       onError("Failed to parse server's response: " + e.getMessage(), e);
     }
@@ -229,16 +219,14 @@ public class WSConnection extends WebSocketListener {
     }
   }
 
-//  private void processPingOnTradingLine(JsonWrapper jsonWrapper, WebSocket webSocket) {
-//    long ts = jsonWrapper.getLong("ts");
-//    webSocket.send(String.format("{\"op\":\"pong\",\"ts\":%d}", ts));
-//  }
-//
-//  private void processPingOnMarketLine(JsonWrapper jsonWrapper, WebSocket webSocket) {
-//    long ts = jsonWrapper.getLong("ping");
-//    webSocket.send(String.format("{\"pong\":%d}", ts));
-//  }
-
+  private void processPingOnMarketLine(WebSocket webSocket, R r) {
+    Gson gson = new Gson();
+    long pingTime = ((EventDecoder.Ping) r.data).ts;
+    PongMessage pongMessage = PongMessage.builder().action("pong").ts(pingTime).build();
+    String jsonMessage = gson.toJson(pongMessage, PongMessage.class);
+    log.info("msg:" + jsonMessage);
+    webSocket.send(jsonMessage);
+  }
 
   public void close() {
     log.error("[Sub][" + this.connectionId + "] Closing normally");

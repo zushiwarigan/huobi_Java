@@ -9,7 +9,7 @@ public class WSRequest<T> {
   Handler<WSConnection> connectionHandler;
   Handler<WSConnection> authHandler = null;
   final SubscriptionListener<T> updateCallback;
-  RestApiJsonParser<T> jsonParser;
+  RestApiR<T> rParser;
   final SubscriptionErrorHandler errorHandler;
 
   public WSRequest(SubscriptionListener<T> listener, SubscriptionErrorHandler errorHandler) {
