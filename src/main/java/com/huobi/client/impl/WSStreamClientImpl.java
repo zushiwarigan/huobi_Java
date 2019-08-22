@@ -10,6 +10,7 @@ import com.huobi.client.SubscribeOption;
 import com.huobi.client.SubscriptionErrorHandler;
 import com.huobi.client.SubscriptionListener;
 import com.huobi.client.message.CandlestickMessage;
+import com.huobi.client.message.PriceDepthMessage;
 import com.huobi.gateway.enums.CandlestickIntervalEnum;
 
 public class WSStreamClientImpl implements SubscribeClient {
@@ -67,6 +68,23 @@ public class WSStreamClientImpl implements SubscribeClient {
     createConnection(requestImpl.subscribeCandlestick(
         parseSymbols(symbols), interval, subscriptionListener, errorHandler));
   }
+
+  @Override
+  public void subscribePriceDepth(
+      String symbols,
+      SubscriptionListener<PriceDepthMessage> subscriptionListener) {
+    subscribePriceDepth(symbols, subscriptionListener, null);
+  }
+
+  @Override
+  public void subscribePriceDepth(
+      String symbols,
+      SubscriptionListener<PriceDepthMessage> subscriptionListener,
+      SubscriptionErrorHandler errorHandler) {
+    createConnection(requestImpl.subscribePriceDepth(
+        parseSymbols(symbols), subscriptionListener, errorHandler));
+  }
+
 
   @Override
   public void unsubscribeAll() {

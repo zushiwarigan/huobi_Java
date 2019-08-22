@@ -1,4 +1,4 @@
-package com.huobi.client.message;
+package com.huobi.client.channel;
 
 
 import lombok.AllArgsConstructor;
@@ -10,7 +10,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Builder
-public class CandlestickChannel {
+public class SubChannel {
   String action;
+
   String ch;
 }

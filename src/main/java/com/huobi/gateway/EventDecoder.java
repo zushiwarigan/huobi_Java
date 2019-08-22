@@ -295,7 +295,7 @@ public class EventDecoder {
   }
 
   public static class Depth {
-
+    public long ts;
     public String symbol;
     public boolean delta;
     public List<DepthTick> bids = new ArrayList<>();

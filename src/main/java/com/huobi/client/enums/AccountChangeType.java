@@ -1,5 +1,8 @@
 package com.huobi.client.enums;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 import com.huobi.client.utils.EnumLookup;
 
 /**
@@ -9,8 +12,8 @@ import com.huobi.client.utils.EnumLookup;
  * principal（margin.loan),loan interest （margin.interest),return loan interest(margin.repay),other
  * asset change(other)
  */
+@AllArgsConstructor
 public enum AccountChangeType {
-
 
   NEWORDER("order.place"),
 
@@ -34,16 +37,8 @@ public enum AccountChangeType {
 
   INVALID("INVALID");
 
+  @Getter
   private final String code;
-
-  AccountChangeType(String code) {
-    this.code = code;
-  }
-
-  @Override
-  public String toString() {
-    return code;
-  }
 
   private static final EnumLookup<AccountChangeType> lookup = new EnumLookup<>(
       AccountChangeType.class);
@@ -51,6 +46,4 @@ public enum AccountChangeType {
   public static AccountChangeType lookup(String name) {
     return lookup.lookup(name);
   }
-
-
 }

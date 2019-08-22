@@ -101,7 +101,7 @@ public class WSConnection extends WebSocketListener {
     } catch (Exception e) {
       log.info(e.getMessage());
     }
-    
+
     this.okhttpRequest = request.authHandler == null
         ? new Request.Builder().url(subscriptionMarketUrl).addHeader(Const.EXCHANGE_CODE, Const.EXCHANGE_PRO_CODE)
         .addHeader(Const.CODEC, CommonConstant.CODEC_PROTOBUF).build()

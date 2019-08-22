@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class PongMessage {
 
   String action;
+
   long ts;
 }
 

@@ -3,6 +3,7 @@ package com.huobi.client;
 import com.huobi.client.enums.BalanceMode;
 import com.huobi.client.impl.HuobiApiInternalFactory;
 import com.huobi.client.message.CandlestickMessage;
+import com.huobi.client.message.PriceDepthMessage;
 import com.huobi.gateway.enums.CandlestickIntervalEnum;
 
 /***
@@ -46,7 +47,7 @@ public interface SubscribeClient {
    * @param callback The implementation is required. onReceive will be called if receive server's
    * update.
    */
-//  void subscribePriceDepthEvent(String symbols, SubscriptionListener<PriceDepthEvent> callback);
+  void subscribePriceDepth(String symbols, SubscriptionListener<PriceDepthMessage> callback);
 
   /**
    * Subscribe price depth event. If the price depth is updated, server will send the data to client
@@ -59,9 +60,9 @@ public interface SubscribeClient {
    * @param errorHandler The error handler will be called if subscription failed or error happen
    * between client and Huobi server.
    */
-//  void subscribePriceDepthEvent(String symbols,
-//      SubscriptionListener<PriceDepthEvent> callback,
-//      SubscriptionErrorHandler errorHandler);
+  void subscribePriceDepth(String symbols,
+      SubscriptionListener<PriceDepthMessage> callback,
+      SubscriptionErrorHandler errorHandler);
 
   /**
    * Subscribe price depth event. If the price depth is updated server will send the data to client
