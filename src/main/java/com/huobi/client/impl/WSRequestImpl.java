@@ -66,7 +66,7 @@ public class WSRequestImpl {
               connection.send(req);
               await(1);
             });
-    request.rParser = (r) -> {
+    request.parser = (r) -> {
       EventDecoder.Candlestick d = (EventDecoder.Candlestick) r.data;
       CandlestickMessage candlestickMessage = new CandlestickMessage();
       candlestickMessage.setSymbol(d.symbol);
@@ -108,7 +108,7 @@ public class WSRequestImpl {
               connection.send(req);
               await(1);
             });
-    request.rParser = (r) -> {
+    request.parser = (r) -> {
       EventDecoder.Depth d = (EventDecoder.Depth) r.data;
       PriceDepthMessage priceDepthMessage = new PriceDepthMessage();
       priceDepthMessage.setTimestamp(
@@ -161,7 +161,7 @@ public class WSRequestImpl {
               connection.send(req);
               await(1);
             });
-    request.rParser = (r) -> {
+    request.parser = (r) -> {
       EventDecoder.Trades d = (EventDecoder.Trades) r.data;
       TradeMessage tradeMessage = new TradeMessage();
       tradeMessage.setTimestamp(TimeService.convertCSTInMillisecondToUTC(d.ts));
@@ -203,7 +203,7 @@ public class WSRequestImpl {
               connection.send(req);
               await(1);
             });
-    request.rParser = (r) -> {
+    request.parser = (r) -> {
 
       EventDecoder.AggrTrades at = (EventDecoder.AggrTrades) r.data;
       long timestamp = TimeService.convertCSTInMillisecondToUTC(at.ts);
@@ -249,7 +249,7 @@ public class WSRequestImpl {
               connection.send(req);
               await(1);
             });
-    request.rParser = (r) -> {
+    request.parser = (r) -> {
 
       EventDecoder.Summary summary = (EventDecoder.Summary) r.data;
       long timestamp = TimeService.convertCSTInMillisecondToUTC(summary.ts);
@@ -293,7 +293,7 @@ public class WSRequestImpl {
       }
     };
 
-    request.rParser = (r) -> {
+    request.parser = (r) -> {
 
       EventDecoder.Overview overview = (EventDecoder.Overview) r.data;
       long timestamp = TimeService.convertCSTInMillisecondToUTC(overview.ts);

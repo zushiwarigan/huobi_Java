@@ -12,9 +12,13 @@ import com.huobi.gateway.enums.DepthStepEnum;
 public abstract class ChannelUtil {
 
   public static String candlestickChannel(String symbol, CandlestickIntervalEnum interval) {
-    String ch = "candlestick#" + symbol + '@' + interval.value;
+    String ch = getCandlestickChannel(symbol,interval);
     SubChannel channel = SubChannel.builder().action("sub").ch(ch).build();
     return JSON.toJSONString(channel);
+  }
+
+  public static String getCandlestickChannel(String symbol, CandlestickIntervalEnum interval){
+    return "candlestick#" + symbol + '@' + interval.value;
   }
 
   public static String priceDepthChannel(String symbol, int levels, DepthStepEnum step) {

@@ -3,7 +3,7 @@ package com.huobi.client.impl;
 import com.huobi.gateway.EventDecoder.R;
 
 @FunctionalInterface
-interface RestApiR<T> {
+interface RestApiParser<T> {
 
-  T parseR(R r);
+  T parse(R r);
 }

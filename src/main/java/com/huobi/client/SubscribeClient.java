@@ -109,6 +109,15 @@ public interface SubscribeClient {
 
   void subscribeTradeOverviewEvent(SubscriptionListener<TradeOverviewMessage> callback,
       SubscriptionErrorHandler errorHandler);
+
+  void requestCandlestickEvent(String symbols,
+      CandlestickIntervalEnum interval,
+      SubscriptionListener<TradeOverviewMessage> callback);
+
+  void requestCandlestickEvent(String symbols,
+      CandlestickIntervalEnum interval,
+      SubscriptionListener<TradeOverviewMessage> callback,
+      SubscriptionErrorHandler errorHandler);
   /**
    * Subscribe account changing event. If the balance is updated, server will send the data to
    * client and onReceive in callback will be called. default to subscribe the available balance.
