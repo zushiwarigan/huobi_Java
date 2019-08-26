@@ -3,8 +3,7 @@ package com.huobi.client.impl;
 import java.io.IOException;
 import java.net.URI;
 
-import com.google.gson.Gson;
-
+import com.alibaba.fastjson.JSON;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.Request;
@@ -92,8 +91,8 @@ public class WSConnection extends WebSocketListener {
       String host = new URI(options.getUri()).getHost();
       this.tradingHost = host;
 //      if (host.indexOf("api") == 0) {
-        this.subscriptionMarketUrl = scheme + host + marketUrl;
-        this.subscriptionTradingUrl = scheme + host + tradingUrl;
+      this.subscriptionMarketUrl = scheme + host + marketUrl;
+      this.subscriptionTradingUrl = scheme + host + tradingUrl;
 //      } else {
 //        this.subscriptionMarketUrl = scheme + host + apiUrl;
 //        this.subscriptionTradingUrl = scheme + host + tradingUrl;
@@ -220,10 +219,9 @@ public class WSConnection extends WebSocketListener {
   }
 
   private void processPingOnMarketLine(WebSocket webSocket, R r) {
-    Gson gson = new Gson();
     long pingTime = ((EventDecoder.Ping) r.data).ts;
     PongMessage pongMessage = PongMessage.builder().action("pong").ts(pingTime).build();
-    String jsonMessage = gson.toJson(pongMessage, PongMessage.class);
+    String jsonMessage = JSON.toJSONString(pongMessage);
     log.info("msg:" + jsonMessage);
     webSocket.send(jsonMessage);
   }

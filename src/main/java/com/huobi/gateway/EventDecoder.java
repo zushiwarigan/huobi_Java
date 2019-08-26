@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import com.huobi.gateway.protocol.MarketDownstreamProtocol;
 import com.huobi.gateway.protocol.MarketDownstreamProtocol.Action;
@@ -247,14 +246,12 @@ public class EventDecoder {
 
   public static class R {
 
-    @JsonProperty("act")
     public String action;
     public String ch;
     public Object data;
     public Long seq;
     public Integer code;
 
-    @JsonProperty("m")
     public String message;
   }
 

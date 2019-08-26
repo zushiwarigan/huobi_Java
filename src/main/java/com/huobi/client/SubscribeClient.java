@@ -2,8 +2,12 @@ package com.huobi.client;
 
 import com.huobi.client.enums.BalanceMode;
 import com.huobi.client.impl.HuobiApiInternalFactory;
+import com.huobi.client.message.AggrTradesMessage;
 import com.huobi.client.message.CandlestickMessage;
 import com.huobi.client.message.PriceDepthMessage;
+import com.huobi.client.message.TradeMessage;
+import com.huobi.client.message.TradeOverviewMessage;
+import com.huobi.client.message.TradeSummaryMessage;
 import com.huobi.gateway.enums.CandlestickIntervalEnum;
 
 /***
@@ -73,7 +77,7 @@ public interface SubscribeClient {
    * @param callback The implementation is required. onReceive will be called if receive server's
    * update.
    */
-//  void subscribeTradeEvent(String symbols, SubscriptionListener<TradeEvent> callback);
+  void subscribeTradeEvent(String symbols, SubscriptionListener<TradeMessage> callback);
 
   /**
    * Subscribe price depth event. If the price depth is updated, server will send the data to client
@@ -86,10 +90,25 @@ public interface SubscribeClient {
    * @param errorHandler The error handler will be called if subscription failed or error happen
    * between client and Huobi server.
    */
-//  void subscribeTradeEvent(String symbols,
-//      SubscriptionListener<TradeEvent> callback,
-//      SubscriptionErrorHandler errorHandler);
+  void subscribeTradeEvent(String symbols,
+      SubscriptionListener<TradeMessage> callback,
+      SubscriptionErrorHandler errorHandler);
 
+  void subscribeAggrTradesEvent(String symbols,SubscriptionListener<AggrTradesMessage> callback);
+
+  void subscribeAggrTradesEvent(String symbols,SubscriptionListener<AggrTradesMessage> callback,
+      SubscriptionErrorHandler errorHandler);
+
+
+  void subscribeTradeSummaryEvent(String symbols,SubscriptionListener<TradeSummaryMessage> callback);
+
+  void subscribeTradeSummaryEvent(String symbols,SubscriptionListener<TradeSummaryMessage> callback,
+      SubscriptionErrorHandler errorHandler);
+
+  void subscribeTradeOverviewEvent(SubscriptionListener<TradeOverviewMessage> callback);
+
+  void subscribeTradeOverviewEvent(SubscriptionListener<TradeOverviewMessage> callback,
+      SubscriptionErrorHandler errorHandler);
   /**
    * Subscribe account changing event. If the balance is updated, server will send the data to
    * client and onReceive in callback will be called. default to subscribe the available balance.

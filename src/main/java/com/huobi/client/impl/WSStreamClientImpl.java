@@ -9,8 +9,12 @@ import com.huobi.client.SubscribeClient;
 import com.huobi.client.SubscribeOption;
 import com.huobi.client.SubscriptionErrorHandler;
 import com.huobi.client.SubscriptionListener;
+import com.huobi.client.message.AggrTradesMessage;
 import com.huobi.client.message.CandlestickMessage;
 import com.huobi.client.message.PriceDepthMessage;
+import com.huobi.client.message.TradeMessage;
+import com.huobi.client.message.TradeOverviewMessage;
+import com.huobi.client.message.TradeSummaryMessage;
 import com.huobi.gateway.enums.CandlestickIntervalEnum;
 
 public class WSStreamClientImpl implements SubscribeClient {
@@ -83,6 +87,47 @@ public class WSStreamClientImpl implements SubscribeClient {
       SubscriptionErrorHandler errorHandler) {
     createConnection(requestImpl.subscribePriceDepth(
         parseSymbols(symbols), subscriptionListener, errorHandler));
+  }
+
+  @Override
+  public void subscribeTradeEvent(String symbols, SubscriptionListener<TradeMessage> callback) {
+    subscribeTradeEvent(symbols, callback, null);
+  }
+
+  @Override
+  public void subscribeTradeEvent(String symbols, SubscriptionListener<TradeMessage> callback, SubscriptionErrorHandler errorHandler) {
+    createConnection(requestImpl.subscribeTrade(parseSymbols(symbols), callback, errorHandler));
+  }
+
+  @Override
+  public void subscribeAggrTradesEvent(String symbols, SubscriptionListener<AggrTradesMessage> callback) {
+    subscribeAggrTradesEvent(symbols, callback, null);
+  }
+
+  @Override
+  public void subscribeAggrTradesEvent(String symbols, SubscriptionListener<AggrTradesMessage> callback, SubscriptionErrorHandler errorHandler) {
+    createConnection(requestImpl.subscribeAggrTrades(parseSymbols(symbols), callback, errorHandler));
+  }
+
+  @Override
+  public void subscribeTradeSummaryEvent(String symbols, SubscriptionListener<TradeSummaryMessage> callback) {
+    subscribeTradeSummaryEvent(symbols, callback, null);
+  }
+
+  @Override
+  public void subscribeTradeSummaryEvent(String symbols, SubscriptionListener<TradeSummaryMessage> callback, SubscriptionErrorHandler errorHandler) {
+    createConnection(requestImpl.subscribeTradeSummary(parseSymbols(symbols), callback, errorHandler));
+  }
+
+  @Override
+  public void subscribeTradeOverviewEvent(SubscriptionListener<TradeOverviewMessage> callback) {
+    subscribeTradeOverviewEvent(callback, null);
+  }
+
+  @Override
+  public void subscribeTradeOverviewEvent(SubscriptionListener<TradeOverviewMessage> callback,
+      SubscriptionErrorHandler errorHandler) {
+    createConnection(requestImpl.subscribeTradeOverview(callback, errorHandler));
   }
 
 
