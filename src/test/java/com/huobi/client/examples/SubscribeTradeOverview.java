@@ -13,7 +13,7 @@ public class SubscribeTradeOverview {
     SubscribeClient subscribeClient = SubscribeClient.create();
     subscribeClient.subscribeTradeOverviewEvent((tradeOverviewMessage) -> {
 
-      log.info(tradeOverviewMessage.toString());
+      log.info("=====[sub]========={}===",tradeOverviewMessage.getOverviewList().size());
       for (TradeOverviewEntry overview : tradeOverviewMessage.getOverviewList()) {
         log.info("symbol:{} --> {}", overview.getSymbol(), overview.toString());
       }
