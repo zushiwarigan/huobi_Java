@@ -169,7 +169,7 @@ public class WSStreamClientImpl implements SubscribeClient {
       SubscriptionListener<PriceDepthMessage> callback,
       SubscriptionErrorHandler errorHandler) {
     createConnection(requestImpl.subscribePriceDepth(
-        parseSymbols(symbols), depthLevel, depthStep, callback, errorHandler, false));
+        parseSymbols(symbols), depthLevel, depthStep, callback, errorHandler, true));
   }
 
   @Override

@@ -1,4 +1,4 @@
-package com.huobi.client.model;
+package com.huobi.client.message.model;
 
 import java.math.BigDecimal;
 
@@ -15,7 +15,7 @@ import com.huobi.gateway.SideEnum;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class AggrTrade {
+public class AggrTradeEntry {
 
   private String symbol;
 

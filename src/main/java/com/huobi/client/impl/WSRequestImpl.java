@@ -19,11 +19,11 @@ import com.huobi.client.message.TradeOverviewMessage;
 import com.huobi.client.message.TradeSummaryMessage;
 import com.huobi.client.message.model.CandlestickEntry;
 import com.huobi.client.message.model.TradeEntry;
-import com.huobi.client.model.AggrTrade;
+import com.huobi.client.message.model.AggrTradeEntry;
 import com.huobi.client.model.DepthEntry;
 import com.huobi.client.model.PriceDepth;
-import com.huobi.client.model.TradeOverview;
-import com.huobi.client.model.TradeSummary;
+import com.huobi.client.message.model.TradeOverviewEntry;
+import com.huobi.client.message.model.TradeSummaryEntry;
 import com.huobi.client.utils.ChannelUtil;
 import com.huobi.client.utils.Handler;
 import com.huobi.client.utils.TimeService;
@@ -227,7 +227,7 @@ public class WSRequestImpl {
       message.setTimestamp(timestamp);
       message.setSymbol(at.symbol);
 
-      AggrTrade trade = AggrTrade.builder()
+      AggrTradeEntry trade = AggrTradeEntry.builder()
           .symbol(at.symbol)
           .timestamp(timestamp)
           .firstTradeId(at.firstTradeId)
@@ -236,7 +236,7 @@ public class WSRequestImpl {
           .volume(new BigDecimal(at.volume))
           .side(at.side)
           .build();
-      List<AggrTrade> list = new ArrayList<AggrTrade>(1);
+      List<AggrTradeEntry> list = new ArrayList<AggrTradeEntry>(1);
       list.add(trade);
       message.setAggrTradeList(list);
       return message;
@@ -281,7 +281,7 @@ public class WSRequestImpl {
       message.setTimestamp(timestamp);
       message.setSymbol(summary.symbol);
 
-      TradeSummary tradeSummary = TradeSummary.builder()
+      TradeSummaryEntry tradeSummary = TradeSummaryEntry.builder()
           .symbol(summary.symbol)
           .timestamp(timestamp)
           .turnover(new BigDecimal(summary.turnover))
@@ -325,9 +325,9 @@ public class WSRequestImpl {
       message.setTimestamp(timestamp);
 
       List<OverviewTick> tickList = overview.ticks;
-      List<TradeOverview> overviewList = new ArrayList<>(tickList.size());
+      List<TradeOverviewEntry> overviewList = new ArrayList<>(tickList.size());
       for (OverviewTick tick : tickList) {
-        overviewList.add(TradeOverview.builder()
+        overviewList.add(TradeOverviewEntry.builder()
             .symbol(tick.symbol)
             .turnover(new BigDecimal(tick.turnover))
             .volume(new BigDecimal(tick.volume))

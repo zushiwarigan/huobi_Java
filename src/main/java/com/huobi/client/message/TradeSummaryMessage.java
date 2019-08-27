@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import com.huobi.client.model.TradeSummary;
+import com.huobi.client.message.model.TradeSummaryEntry;
 
 /**
  * The summary of trades in last 24 hours
@@ -33,8 +33,8 @@ public class TradeSummaryMessage {
   /**
    * the trade summary.
    *
-   * The trade summary data, see {@link TradeSummary}
+   * The trade summary data, see {@link TradeSummaryEntry}
    */
-  private TradeSummary tradeSummary;
+  private TradeSummaryEntry tradeSummary;
 
 }

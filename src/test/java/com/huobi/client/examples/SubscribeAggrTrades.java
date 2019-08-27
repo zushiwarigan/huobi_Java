@@ -3,7 +3,7 @@ package com.huobi.client.examples;
 import lombok.extern.slf4j.Slf4j;
 
 import com.huobi.client.SubscribeClient;
-import com.huobi.client.model.AggrTrade;
+import com.huobi.client.message.model.AggrTradeEntry;
 
 @Slf4j
 public class SubscribeAggrTrades {
@@ -13,7 +13,7 @@ public class SubscribeAggrTrades {
     SubscribeClient subscribeClient = SubscribeClient.create();
     subscribeClient.subscribeAggrTradesEvent("btcusdt", (aggrTradesMessage) -> {
 
-      for (AggrTrade trade : aggrTradesMessage.getAggrTradeList()) {
+      for (AggrTradeEntry trade : aggrTradesMessage.getAggrTradeList()) {
         log.info(" trade:{}", trade.toString());
       }
 

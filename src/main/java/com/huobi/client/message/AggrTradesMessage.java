@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import com.huobi.client.model.AggrTrade;
+import com.huobi.client.message.model.AggrTradeEntry;
 
 /**
  * The aggregate trades received by subscription of aggrTrades
@@ -35,8 +35,8 @@ public class AggrTradesMessage {
   /**
    * the AggrTrade.
    *
-   * The AggrTrade data, see {@link AggrTrade}
+   * The AggrTrade data, see {@link AggrTradeEntry}
    */
-  private List<AggrTrade> aggrTradeList;
+  private List<AggrTradeEntry> aggrTradeList;
 
 }

@@ -3,7 +3,7 @@ package com.huobi.client.examples;
 import lombok.extern.slf4j.Slf4j;
 
 import com.huobi.client.SubscribeClient;
-import com.huobi.client.model.TradeOverview;
+import com.huobi.client.message.model.TradeOverviewEntry;
 
 @Slf4j
 public class SubscribeTradeOverview {
@@ -14,7 +14,7 @@ public class SubscribeTradeOverview {
     subscribeClient.subscribeTradeOverviewEvent((tradeOverviewMessage) -> {
 
       log.info(tradeOverviewMessage.toString());
-      for (TradeOverview overview : tradeOverviewMessage.getOverviewList()) {
+      for (TradeOverviewEntry overview : tradeOverviewMessage.getOverviewList()) {
         log.info("symbol:{} --> {}", overview.getSymbol(), overview.toString());
       }
     });

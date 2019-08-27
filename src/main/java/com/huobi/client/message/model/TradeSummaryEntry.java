@@ -1,4 +1,4 @@
-package com.huobi.client.model;
+package com.huobi.client.message.model;
 
 import java.math.BigDecimal;
 
@@ -13,7 +13,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class TradeSummary {
+public class TradeSummaryEntry {
 
   /**
    * The symbol you subscribed.

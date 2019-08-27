@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import com.huobi.client.model.TradeOverview;
+import com.huobi.client.message.model.TradeOverviewEntry;
 
 @Data
 @Builder
@@ -26,7 +26,7 @@ public class TradeOverviewMessage {
   /**
    * the TradeOverview.
    *
-   * The TradeOverview data, see {@link TradeOverview}
+   * The TradeOverview data, see {@link TradeOverviewEntry}
    */
-  private List<TradeOverview> overviewList;
+  private List<TradeOverviewEntry> overviewList;
 }
