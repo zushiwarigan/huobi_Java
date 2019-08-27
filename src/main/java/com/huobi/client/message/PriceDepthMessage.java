@@ -1,11 +1,14 @@
 package com.huobi.client.message;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import com.huobi.client.model.PriceDepth;
+import com.huobi.client.message.model.PriceLevelEntry;
+import com.huobi.client.model.DepthEntry;
 
 /**
  * The price depth received by subscription of price depth.
@@ -29,9 +32,16 @@ public class PriceDepthMessage {
   private Long timestamp;
 
   /**
-   * the price depth.
+   * the list of the bid depth.
    *
-   * The price depth data, see {@link PriceDepth}
+   * The price depth list, see {@link DepthEntry}
    */
-  private PriceDepth data;
+  private List<PriceLevelEntry> bids;
+
+  /**
+   * the list of the ask depth.
+   *
+   * The price depth list, see {@link DepthEntry}
+   */
+  private List<PriceLevelEntry> asks;
 }

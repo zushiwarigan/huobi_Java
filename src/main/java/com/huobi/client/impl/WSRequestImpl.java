@@ -17,11 +17,10 @@ import com.huobi.client.message.PriceDepthMessage;
 import com.huobi.client.message.TradeMessage;
 import com.huobi.client.message.TradeOverviewMessage;
 import com.huobi.client.message.TradeSummaryMessage;
-import com.huobi.client.message.model.CandlestickEntry;
-import com.huobi.client.message.model.TradeEntry;
 import com.huobi.client.message.model.AggrTradeEntry;
-import com.huobi.client.model.DepthEntry;
-import com.huobi.client.model.PriceDepth;
+import com.huobi.client.message.model.CandlestickEntry;
+import com.huobi.client.message.model.PriceLevelEntry;
+import com.huobi.client.message.model.TradeEntry;
 import com.huobi.client.message.model.TradeOverviewEntry;
 import com.huobi.client.message.model.TradeSummaryEntry;
 import com.huobi.client.utils.ChannelUtil;
@@ -130,27 +129,24 @@ public class WSRequestImpl {
       priceDepthMessage.setTimestamp(
           TimeService.convertCSTInMillisecondToUTC(d.ts));
       priceDepthMessage.setSymbol(d.symbol);
-      PriceDepth priceDepth = new PriceDepth();
-      priceDepth.setTimestamp(TimeService.convertCSTInMillisecondToUTC(d.ts));
-      List<DepthEntry> bidList = new LinkedList<>();
+      List<PriceLevelEntry> bidList = new LinkedList<>();
       List<DepthTick> bids = d.bids;
       bids.forEach((item) -> {
-        DepthEntry depthEntry = new DepthEntry();
-        depthEntry.setPrice(new BigDecimal(item.price));
-        depthEntry.setAmount(new BigDecimal(item.size));
-        bidList.add(depthEntry);
+        bidList.add(PriceLevelEntry.builder()
+            .price(new BigDecimal(item.price))
+            .size(new BigDecimal(item.size))
+            .build());
       });
-      List<DepthEntry> askList = new LinkedList<>();
+      List<PriceLevelEntry> askList = new LinkedList<>();
       List<DepthTick> asks = d.asks;
       asks.forEach((item) -> {
-        DepthEntry depthEntry = new DepthEntry();
-        depthEntry.setPrice(new BigDecimal(item.price));
-        depthEntry.setAmount(new BigDecimal(item.size));
-        askList.add(depthEntry);
+        askList.add(PriceLevelEntry.builder()
+            .price(new BigDecimal(item.price))
+            .size(new BigDecimal(item.size))
+            .build());
       });
-      priceDepth.setAsks(askList);
-      priceDepth.setBids(bidList);
-      priceDepthMessage.setData(priceDepth);
+      priceDepthMessage.setAsks(askList);
+      priceDepthMessage.setBids(bidList);
       return priceDepthMessage;
     };
     return request;
