@@ -125,7 +125,7 @@ public class WSStreamClientImpl implements SubscribeClient {
 
   @Override
   public void subscribeTradeSummaryEvent(String symbols, SubscriptionListener<TradeSummaryMessage> callback, SubscriptionErrorHandler errorHandler) {
-    createConnection(requestImpl.subscribeTradeSummary(parseSymbols(symbols), callback, errorHandler));
+    createConnection(requestImpl.subscribeTradeSummary(parseSymbols(symbols), callback, errorHandler,false));
   }
 
   @Override
@@ -180,6 +180,16 @@ public class WSStreamClientImpl implements SubscribeClient {
   @Override
   public void requestTradeEvent(String symbols, int limit, SubscriptionListener<TradeMessage> callback, SubscriptionErrorHandler errorHandler) {
     createConnection(requestImpl.requestTrade(parseSymbols(symbols), limit, callback, errorHandler));
+  }
+
+  @Override
+  public void requestTradeSummaryEvent(String symbols, SubscriptionListener<TradeSummaryMessage> callback) {
+    requestTradeSummaryEvent(symbols,callback,null);
+  }
+
+  @Override
+  public void requestTradeSummaryEvent(String symbols, SubscriptionListener<TradeSummaryMessage> callback, SubscriptionErrorHandler errorHandler) {
+    createConnection(requestImpl.subscribeTradeSummary(parseSymbols(symbols), callback, errorHandler,true));
   }
 
 

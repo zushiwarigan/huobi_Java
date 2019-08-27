@@ -135,7 +135,10 @@ public interface SubscribeClient {
       SubscriptionListener<TradeMessage> callback,
       SubscriptionErrorHandler errorHandler);
 
+  void requestTradeSummaryEvent(String symbols, SubscriptionListener<TradeSummaryMessage> callback);
 
+  void requestTradeSummaryEvent(String symbols, SubscriptionListener<TradeSummaryMessage> callback,
+      SubscriptionErrorHandler errorHandler);
 
   /**
    * Unsubscribe all subscription.

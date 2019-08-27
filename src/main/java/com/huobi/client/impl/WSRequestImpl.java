@@ -248,7 +248,7 @@ public class WSRequestImpl {
   WSRequest<TradeSummaryMessage> subscribeTradeSummary(
       List<String> symbols,
       SubscriptionListener<TradeSummaryMessage> subscriptionListener,
-      SubscriptionErrorHandler errorHandler) {
+      SubscriptionErrorHandler errorHandler, boolean actionReq) {
     InputChecker.checker().checkSymbolList(symbols).shouldNotNull(subscriptionListener, "listener");
 
     WSRequest<TradeSummaryMessage> request =
@@ -258,13 +258,21 @@ public class WSRequestImpl {
     } else {
       request.name = "TradeSummary for " + symbols + " ...";
     }
-    request.connectionHandler = (connection) ->
-        symbols.stream()
-            .map((symbol) -> ChannelUtil.tradeSummaryChannel(symbol))
-            .forEach(req -> {
-              connection.send(req);
-              await(1);
-            });
+    request.connectionHandler = new Handler<WSConnection>() {
+      @Override
+      public void handle(WSConnection wsConnection) {
+
+        for (String symbol : symbols) {
+          String req = actionReq
+              ? ChannelUtil.tradeReqSummaryChannel(symbol)
+              : ChannelUtil.tradeSummaryChannel(symbol);
+
+          wsConnection.send(req);
+          await(1);
+
+        }
+      }
+    };
     request.parser = (r) -> {
 
       EventDecoder.Summary summary = (EventDecoder.Summary) r.data;

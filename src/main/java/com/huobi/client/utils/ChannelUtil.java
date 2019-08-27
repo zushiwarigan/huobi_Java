@@ -85,9 +85,19 @@ public abstract class ChannelUtil {
   }
 
   public static String tradeSummaryChannel(String symbol) {
-    String ch = "summary#" + symbol;
+    String ch = getTradeSummaryChannel(symbol);
     SubChannel channel = SubChannel.builder().action(ACTION_SUB).ch(ch).build();
     return channel.toJSONString();
+  }
+
+  public static String tradeReqSummaryChannel(String symbol) {
+    String ch = getTradeSummaryChannel(symbol);
+    ReqChannel channel = ReqChannel.builder().seq(System.currentTimeMillis()).action(ACTION_REQ).ch(ch).build();
+    return channel.toJSONString();
+  }
+
+  public static String getTradeSummaryChannel(String symbol) {
+    return "summary#" + symbol;
   }
 
   public static String tradeSummaryChannel() {

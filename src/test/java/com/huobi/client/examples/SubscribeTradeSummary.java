@@ -11,10 +11,14 @@ public class SubscribeTradeSummary {
 
     SubscribeClient subscribeClient = SubscribeClient.create();
     subscribeClient.subscribeTradeSummaryEvent("btcusdt", (tradeSummaryMessage) -> {
-
+      log.info("====[sub]====={}===========",tradeSummaryMessage.getSymbol());
       log.info(tradeSummaryMessage.getTradeSummary().toString());
     });
 
+    subscribeClient.requestTradeSummaryEvent("btcusdt", (tradeSummaryMessage) -> {
+      log.info("====[req]====={}===========",tradeSummaryMessage.getSymbol());
+      log.info(tradeSummaryMessage.getTradeSummary().toString());
+    });
 
   }
 
