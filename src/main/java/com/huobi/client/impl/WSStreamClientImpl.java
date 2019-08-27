@@ -16,6 +16,8 @@ import com.huobi.client.message.TradeMessage;
 import com.huobi.client.message.TradeOverviewMessage;
 import com.huobi.client.message.TradeSummaryMessage;
 import com.huobi.gateway.enums.CandlestickIntervalEnum;
+import com.huobi.gateway.enums.DepthLevelEnum;
+import com.huobi.gateway.enums.DepthStepEnum;
 
 public class WSStreamClientImpl implements SubscribeClient {
 
@@ -77,16 +79,23 @@ public class WSStreamClientImpl implements SubscribeClient {
   public void subscribePriceDepth(
       String symbols,
       SubscriptionListener<PriceDepthMessage> subscriptionListener) {
-    subscribePriceDepth(symbols, subscriptionListener, null);
+    subscribePriceDepth(symbols, DepthLevelEnum.LEVEL_5, DepthStepEnum.STEP0, subscriptionListener, null);
   }
 
   @Override
   public void subscribePriceDepth(
-      String symbols,
+      String symbols, DepthLevelEnum depthLevel, DepthStepEnum depthStep,
+      SubscriptionListener<PriceDepthMessage> subscriptionListener) {
+    subscribePriceDepth(symbols, depthLevel, depthStep, subscriptionListener, null);
+  }
+
+  @Override
+  public void subscribePriceDepth(
+      String symbols, DepthLevelEnum depthLevel, DepthStepEnum depthStep,
       SubscriptionListener<PriceDepthMessage> subscriptionListener,
       SubscriptionErrorHandler errorHandler) {
     createConnection(requestImpl.subscribePriceDepth(
-        parseSymbols(symbols), subscriptionListener, errorHandler));
+        parseSymbols(symbols), depthLevel, depthStep, subscriptionListener, errorHandler, false));
   }
 
   @Override
@@ -141,7 +150,26 @@ public class WSStreamClientImpl implements SubscribeClient {
       SubscriptionListener<CandlestickMessage> callback,
       SubscriptionErrorHandler errorHandler) {
 
-    createConnection(requestImpl.requestCandlestickEvent(parseSymbols(symbols),from,to,interval,callback,errorHandler));
+    createConnection(requestImpl.requestCandlestickEvent(parseSymbols(symbols), from, to, interval, callback, errorHandler));
+  }
+
+  @Override
+  public void requestPriceDepth(String symbols, SubscriptionListener<PriceDepthMessage> callback) {
+    requestPriceDepth(symbols, DepthLevelEnum.LEVEL_5, DepthStepEnum.STEP0, callback, null);
+  }
+
+  @Override
+  public void requestPriceDepth(String symbols, DepthLevelEnum depthLevel, DepthStepEnum depthStep,
+      SubscriptionListener<PriceDepthMessage> callback) {
+    requestPriceDepth(symbols, depthLevel, depthStep, callback, null);
+  }
+
+  @Override
+  public void requestPriceDepth(String symbols, DepthLevelEnum depthLevel, DepthStepEnum depthStep,
+      SubscriptionListener<PriceDepthMessage> callback,
+      SubscriptionErrorHandler errorHandler) {
+    createConnection(requestImpl.subscribePriceDepth(
+        parseSymbols(symbols), depthLevel, depthStep, callback, errorHandler, false));
   }
 
 

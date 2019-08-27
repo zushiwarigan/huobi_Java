@@ -17,11 +17,23 @@ public class SubscribeMarketDepth {
       log.info("bids 0 volume: " + priceDepthEvent.getData().getBids().get(0).getAmount());
     });
 
-    //新方式
+    //新方式 订阅price depth
     SubscribeClient subscribeClient = SubscribeClient.create();
     subscribeClient.subscribePriceDepth("btcusdt", (priceDepthMessage) -> {
+    log.info("====[sub]====={}=========",priceDepthMessage.getSymbol());
       log.info("bids 0 price: " + priceDepthMessage.getData().getBids().get(0).getPrice());
       log.info("bids 0 volume: " + priceDepthMessage.getData().getBids().get(0).getAmount());
+      log.info("asks 0 volume: " + priceDepthMessage.getData().getAsks().get(0).getPrice());
+      log.info("asks 0 volume: " + priceDepthMessage.getData().getAsks().get(0).getAmount());
+    });
+
+    //新方式 请求price depth
+    subscribeClient.requestPriceDepth("btcusdt", (priceDepthMessage) -> {
+      log.info("====[req]====={}=========",priceDepthMessage.getSymbol());
+      log.info("bids 0 price: " + priceDepthMessage.getData().getBids().get(0).getPrice());
+      log.info("bids 0 volume: " + priceDepthMessage.getData().getBids().get(0).getAmount());
+      log.info("asks 0 volume: " + priceDepthMessage.getData().getAsks().get(0).getPrice());
+      log.info("asks 0 volume: " + priceDepthMessage.getData().getAsks().get(0).getAmount());
     });
   }
 }

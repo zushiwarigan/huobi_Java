@@ -32,8 +32,8 @@ import com.huobi.gateway.EventDecoder.DepthTick;
 import com.huobi.gateway.EventDecoder.OverviewTick;
 import com.huobi.gateway.EventDecoder.ReqCandlestick.Tick;
 import com.huobi.gateway.enums.CandlestickIntervalEnum;
+import com.huobi.gateway.enums.DepthLevelEnum;
 import com.huobi.gateway.enums.DepthStepEnum;
-import com.huobi.gateway.protocol.MarketDownstreamProtocol.Action;
 
 import static com.huobi.client.utils.InternalUtils.await;
 
@@ -97,9 +97,9 @@ public class WSRequestImpl {
   }
 
   WSRequest<PriceDepthMessage> subscribePriceDepth(
-      List<String> symbols,
+      List<String> symbols,DepthLevelEnum depthLevel, DepthStepEnum depthStep,
       SubscriptionListener<PriceDepthMessage> subscriptionListener,
-      SubscriptionErrorHandler errorHandler) {
+      SubscriptionErrorHandler errorHandler, boolean actionReq) {
     InputChecker.checker().checkSymbolList(symbols).shouldNotNull(subscriptionListener, "listener");
 
     WSRequest<PriceDepthMessage> request =
@@ -109,13 +109,20 @@ public class WSRequestImpl {
     } else {
       request.name = "PriceDepth for " + symbols + " ...";
     }
-    request.connectionHandler = (connection) ->
-        symbols.stream()
-            .map((symbol) -> ChannelUtil.priceDepthChannel(symbol, 5, DepthStepEnum.STEP0))
-            .forEach(req -> {
-              connection.send(req);
-              await(1);
-            });
+    int depthLevelValue = depthLevel.level;
+    request.connectionHandler = new Handler<WSConnection>() {
+      @Override
+      public void handle(WSConnection wsConnection) {
+        for (String symbol : symbols) {
+          String req = actionReq
+              ? ChannelUtil.priceDepthReqChannel(symbol,depthLevelValue,depthStep)
+              : ChannelUtil.priceDepthChannel(symbol, depthLevelValue, depthStep);
+
+          wsConnection.send(req);
+          await(1);
+        }
+      }
+    };
     request.parser = (r) -> {
       EventDecoder.Depth d = (EventDecoder.Depth) r.data;
       PriceDepthMessage priceDepthMessage = new PriceDepthMessage();
@@ -353,12 +360,11 @@ public class WSRequestImpl {
         symbols.stream()
             .map((symbol) -> ChannelUtil.candlestickReqChannel(symbol, from, to, interval))
             .forEach(req -> {
-              System.out.println(" send message:["+req+"]");
+              System.out.println(" send message:[" + req + "]");
               connection.send(req);
               await(1);
             });
     request.parser = (r) -> {
-
 
       EventDecoder.ReqCandlestick reqCandlestick = (EventDecoder.ReqCandlestick) r.data;
 

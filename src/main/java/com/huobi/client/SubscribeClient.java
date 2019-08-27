@@ -1,6 +1,5 @@
 package com.huobi.client;
 
-import com.huobi.client.enums.BalanceMode;
 import com.huobi.client.impl.HuobiApiInternalFactory;
 import com.huobi.client.message.AggrTradesMessage;
 import com.huobi.client.message.CandlestickMessage;
@@ -9,6 +8,8 @@ import com.huobi.client.message.TradeMessage;
 import com.huobi.client.message.TradeOverviewMessage;
 import com.huobi.client.message.TradeSummaryMessage;
 import com.huobi.gateway.enums.CandlestickIntervalEnum;
+import com.huobi.gateway.enums.DepthLevelEnum;
+import com.huobi.gateway.enums.DepthStepEnum;
 
 /***
  * The subscription client interface, it is used for subscribing any market data update and
@@ -44,20 +45,33 @@ public interface SubscribeClient {
 
   /**
    * Subscribe price depth event. If the price depth is updated, server will send the data to client and onReceive in callback will be called.
-   *
+   * @apiNote this interface will be use default depth level(DepthLevelEnum.LEVEL_5) and default depth step（DepthStepEnum.STEP0）
    * @param symbols The symbols, like "btcusdt". Use comma to separate multi symbols, like "btcusdt,ethusdt".
    * @param callback The implementation is required. onReceive will be called if receive server's update.
    */
-  void subscribePriceDepth(String symbols, SubscriptionListener<PriceDepthMessage> callback);
+  void subscribePriceDepth(String symbols,SubscriptionListener<PriceDepthMessage> callback);
+
 
   /**
    * Subscribe price depth event. If the price depth is updated, server will send the data to client and onReceive in callback will be called.
    *
    * @param symbols The symbols, like "btcusdt". Use comma to separate multi symbols, like "btcusdt,ethusdt".
+   * @param depthLevel The levels of price depth
+   * @param depthStep The aggregate price level by same precision or in a same range precision
+   * @param callback The implementation is required. onReceive will be called if receive server's update.
+   */
+  void subscribePriceDepth(String symbols, DepthLevelEnum depthLevel, DepthStepEnum depthStep,SubscriptionListener<PriceDepthMessage> callback);
+
+  /**
+   * Subscribe price depth event. If the price depth is updated, server will send the data to client and onReceive in callback will be called.
+   *
+   * @param symbols The symbols, like "btcusdt". Use comma to separate multi symbols, like "btcusdt,ethusdt".
+   * @param depthLevel The levels of price depth
+   * @param depthStep The aggregate price level by same precision or in a same range precision
    * @param callback The implementation is required. onReceive will be called if receive server's update.
    * @param errorHandler The error handler will be called if subscription failed or error happen between client and Huobi server.
    */
-  void subscribePriceDepth(String symbols,
+  void subscribePriceDepth(String symbols, DepthLevelEnum depthLevel, DepthStepEnum depthStep,
       SubscriptionListener<PriceDepthMessage> callback,
       SubscriptionErrorHandler errorHandler);
 
@@ -104,81 +118,15 @@ public interface SubscribeClient {
       CandlestickIntervalEnum interval,
       SubscriptionListener<CandlestickMessage> callback,
       SubscriptionErrorHandler errorHandler);
-  /**
-   * Subscribe account changing event. If the balance is updated, server will send the data to
-   * client and onReceive in callback will be called. default to subscribe the available balance.
-   *
-   * @param mode The account balance mode, see {@link BalanceMode}
-   * @param callback The implementation is required. onReceive will be called if receive server's
-   * update.
-   */
-//  void subscribeAccountEvent(BalanceMode mode, SubscriptionListener<AccountEvent> callback);
 
-  /**
-   * Subscribe account changing event. If the balance is updated, server will send the data to
-   * client and onReceive in callback will be called.
-   *
-   * @param mode when mode is AVAILABLE, balance refers to available balance; when mode is TOTAL,
-   * balance refers to TOTAL balance for trade sub account (available+frozen).
-   * @param callback The implementation is required. onReceive will be called if receive server's
-   * update.
-   * @param errorHandler The error handler will be called if subscription failed or error happen
-   * between client and Huobi server.
-   */
-//  void subscribeAccountEvent(BalanceMode mode, SubscriptionListener<AccountEvent> callback,
-//      SubscriptionErrorHandler errorHandler);
+  void requestPriceDepth(String symbols,SubscriptionListener<PriceDepthMessage> callback);
 
-  /**
-   * Subscribe order changing event. If a order is created, canceled etc, server will send the data
-   * to client and onReceive in callback will be called.
-   *
-   * @param symbols The symbols, like "btcusdt". Use comma to separate multi symbols, like
-   * "btcusdt,ethusdt".
-   * @param callback The implementation is required. onReceive will be called if receive server's
-   * update.
-   */
-//  void subscribeOrderUpdateEvent(String symbols, SubscriptionListener<OrderUpdateEvent> callback);
+  void requestPriceDepth(String symbols, DepthLevelEnum depthLevel, DepthStepEnum depthStep,
+      SubscriptionListener<PriceDepthMessage> callback);
 
-  /**
-   * Subscribe order changing event. If a order is created, canceled etc, server will send the data
-   * to client and onReceive in callback will be called.
-   *
-   * @param symbols The symbols, like "btcusdt". Use comma to separate multi symbols, like
-   * "btcusdt,ethusdt".
-   * @param callback The implementation is required. onReceive will be called if receive server's
-   * update.
-   * @param errorHandler The error handler will be called if subscription failed or error happen
-   * between client and Huobi server.
-   */
-//  void subscribeOrderUpdateEvent(String symbols, SubscriptionListener<OrderUpdateEvent> callback,
-//      SubscriptionErrorHandler errorHandler);
-
-  /**
-   * Subscribe 24 hours trade statistics event. If statistics is generated, server will send the
-   * data to client and onReceive in callback will be called.
-   *
-   * @param symbols The symbols, like "btcusdt". Use comma to separate multi symbols, like
-   * "btcusdt,ethusdt".
-   * @param callback The implementation is required. onReceive will be called if receive server's
-   * update.
-   */
-//  void subscribe24HTradeStatisticsEvent(String symbols,
-//      SubscriptionListener<TradeStatisticsEvent> callback);
-
-  /**
-   * Subscribe 24 hours trade statistics event. If statistics is generated, server will send the
-   * data to client and onReceive in callback will be called.
-   *
-   * @param symbols The symbols, like "btcusdt". Use comma to separate multi symbols, like
-   * "btcusdt,ethusdt".
-   * @param callback The implementation is required. onReceive will be called if receive server's
-   * update.
-   * @param errorHandler The error handler will be called if subscription failed or error happen
-   * between client and Huobi server.
-   */
-//  void subscribe24HTradeStatisticsEvent(String symbols,
-//      SubscriptionListener<TradeStatisticsEvent> callback, SubscriptionErrorHandler errorHandler);
-
+  void requestPriceDepth(String symbols, DepthLevelEnum depthLevel, DepthStepEnum depthStep,
+      SubscriptionListener<PriceDepthMessage> callback,
+      SubscriptionErrorHandler errorHandler);
   /**
    * Unsubscribe all subscription.
    */

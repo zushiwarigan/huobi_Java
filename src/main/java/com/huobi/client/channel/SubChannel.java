@@ -1,6 +1,7 @@
 package com.huobi.client.channel;
 
 
+import com.alibaba.fastjson.JSON;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,4 +15,9 @@ public class SubChannel {
   String action;
 
   String ch;
+
+
+  public String toJSONString(){
+    return JSON.toJSONString(this);
+  }
 }
