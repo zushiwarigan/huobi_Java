@@ -281,7 +281,7 @@ public class EventDecoder {
     public String symbol;
     public List<Tick> trades;
 
-    static class Tick {
+    public static class Tick {
 
       public long tradeId;
       public long ts;

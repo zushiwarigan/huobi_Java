@@ -61,9 +61,21 @@ public abstract class ChannelUtil {
   }
 
   public static String tradeChannel(String symbol) {
-    String ch = "trades#" + symbol;
+    String ch = getTradeChannel(symbol);
     SubChannel channel = SubChannel.builder().action(ACTION_SUB).ch(ch).build();
     return channel.toJSONString();
+  }
+
+  public static String tradeReqChannel(String symbol, int limit) {
+    String ch = getTradeChannel(symbol);
+    Map<String,Object> params = new HashMap<>();
+    params.put("limit",limit);
+    ReqChannel channel = ReqChannel.builder().seq(System.currentTimeMillis()).action(ACTION_REQ).ch(ch).params(params).build();
+    return channel.toJSONString();
+  }
+
+  public static String getTradeChannel(String symbol) {
+    return "trades#" + symbol;
   }
 
   public static String aggrTradesChannel(String symbol) {

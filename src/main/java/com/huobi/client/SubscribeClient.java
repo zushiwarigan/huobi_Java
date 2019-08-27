@@ -27,7 +27,7 @@ public interface SubscribeClient {
    * @param interval The candlestick/kline interval, MIN1, MIN5, DAY1 etc.
    * @param callback The implementation is required. onReceive will be called if receive server's update.
    */
-  void subscribeCandlestick(String symbols, CandlestickIntervalEnum interval,
+  void subscribeCandlestickEvent(String symbols, CandlestickIntervalEnum interval,
       SubscriptionListener<CandlestickMessage> callback);
 
   /**
@@ -39,7 +39,7 @@ public interface SubscribeClient {
    * @param callback The implementation is required. onReceive will be called if receive server's update.
    * @param errorHandler The error handler will be called if subscription failed or error happen between client and Huobi server.
    */
-  void subscribeCandlestick(String symbols, CandlestickIntervalEnum interval,
+  void subscribeCandlestickEvent(String symbols, CandlestickIntervalEnum interval,
       SubscriptionListener<CandlestickMessage> callback,
       SubscriptionErrorHandler errorHandler);
 
@@ -49,7 +49,7 @@ public interface SubscribeClient {
    * @param symbols The symbols, like "btcusdt". Use comma to separate multi symbols, like "btcusdt,ethusdt".
    * @param callback The implementation is required. onReceive will be called if receive server's update.
    */
-  void subscribePriceDepth(String symbols,SubscriptionListener<PriceDepthMessage> callback);
+  void subscribePriceDepthEvent(String symbols,SubscriptionListener<PriceDepthMessage> callback);
 
 
   /**
@@ -60,7 +60,7 @@ public interface SubscribeClient {
    * @param depthStep The aggregate price level by same precision or in a same range precision
    * @param callback The implementation is required. onReceive will be called if receive server's update.
    */
-  void subscribePriceDepth(String symbols, DepthLevelEnum depthLevel, DepthStepEnum depthStep,SubscriptionListener<PriceDepthMessage> callback);
+  void subscribePriceDepthEvent(String symbols, DepthLevelEnum depthLevel, DepthStepEnum depthStep,SubscriptionListener<PriceDepthMessage> callback);
 
   /**
    * Subscribe price depth event. If the price depth is updated, server will send the data to client and onReceive in callback will be called.
@@ -71,7 +71,7 @@ public interface SubscribeClient {
    * @param callback The implementation is required. onReceive will be called if receive server's update.
    * @param errorHandler The error handler will be called if subscription failed or error happen between client and Huobi server.
    */
-  void subscribePriceDepth(String symbols, DepthLevelEnum depthLevel, DepthStepEnum depthStep,
+  void subscribePriceDepthEvent(String symbols, DepthLevelEnum depthLevel, DepthStepEnum depthStep,
       SubscriptionListener<PriceDepthMessage> callback,
       SubscriptionErrorHandler errorHandler);
 
@@ -127,6 +127,16 @@ public interface SubscribeClient {
   void requestPriceDepth(String symbols, DepthLevelEnum depthLevel, DepthStepEnum depthStep,
       SubscriptionListener<PriceDepthMessage> callback,
       SubscriptionErrorHandler errorHandler);
+
+  void requestTradeEvent(String symbols,int limit,
+      SubscriptionListener<TradeMessage> callback);
+
+  void requestTradeEvent(String symbols,int limit,
+      SubscriptionListener<TradeMessage> callback,
+      SubscriptionErrorHandler errorHandler);
+
+
+
   /**
    * Unsubscribe all subscription.
    */

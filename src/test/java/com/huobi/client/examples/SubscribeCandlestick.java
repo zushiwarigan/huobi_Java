@@ -26,7 +26,7 @@ public class SubscribeCandlestick {
 
     //新方式 订阅K线数据
     SubscribeClient subscribeClient = SubscribeClient.create();
-    subscribeClient.subscribeCandlestick("btcusdt", CandlestickIntervalEnum.MIN_15, (candlestickMessage) -> {
+    subscribeClient.subscribeCandlestickEvent("btcusdt", CandlestickIntervalEnum.MIN_15, (candlestickMessage) -> {
       log.info("=====[sub]====={}==========", candlestickMessage.getSymbol());
       for (CandlestickEntry data : candlestickMessage.getDataList()) {
         log.info("Timestamp: " + data.getTimestamp());

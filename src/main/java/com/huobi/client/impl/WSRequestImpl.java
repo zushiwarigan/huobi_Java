@@ -18,10 +18,10 @@ import com.huobi.client.message.TradeMessage;
 import com.huobi.client.message.TradeOverviewMessage;
 import com.huobi.client.message.TradeSummaryMessage;
 import com.huobi.client.message.model.CandlestickEntry;
+import com.huobi.client.message.model.TradeEntry;
 import com.huobi.client.model.AggrTrade;
 import com.huobi.client.model.DepthEntry;
 import com.huobi.client.model.PriceDepth;
-import com.huobi.client.model.Trade;
 import com.huobi.client.model.TradeOverview;
 import com.huobi.client.model.TradeSummary;
 import com.huobi.client.utils.ChannelUtil;
@@ -31,6 +31,7 @@ import com.huobi.gateway.EventDecoder;
 import com.huobi.gateway.EventDecoder.DepthTick;
 import com.huobi.gateway.EventDecoder.OverviewTick;
 import com.huobi.gateway.EventDecoder.ReqCandlestick.Tick;
+import com.huobi.gateway.EventDecoder.ReqTrade;
 import com.huobi.gateway.enums.CandlestickIntervalEnum;
 import com.huobi.gateway.enums.DepthLevelEnum;
 import com.huobi.gateway.enums.DepthStepEnum;
@@ -97,7 +98,7 @@ public class WSRequestImpl {
   }
 
   WSRequest<PriceDepthMessage> subscribePriceDepth(
-      List<String> symbols,DepthLevelEnum depthLevel, DepthStepEnum depthStep,
+      List<String> symbols, DepthLevelEnum depthLevel, DepthStepEnum depthStep,
       SubscriptionListener<PriceDepthMessage> subscriptionListener,
       SubscriptionErrorHandler errorHandler, boolean actionReq) {
     InputChecker.checker().checkSymbolList(symbols).shouldNotNull(subscriptionListener, "listener");
@@ -115,7 +116,7 @@ public class WSRequestImpl {
       public void handle(WSConnection wsConnection) {
         for (String symbol : symbols) {
           String req = actionReq
-              ? ChannelUtil.priceDepthReqChannel(symbol,depthLevelValue,depthStep)
+              ? ChannelUtil.priceDepthReqChannel(symbol, depthLevelValue, depthStep)
               : ChannelUtil.priceDepthChannel(symbol, depthLevelValue, depthStep);
 
           wsConnection.send(req);
@@ -182,14 +183,14 @@ public class WSRequestImpl {
       tradeMessage.setTimestamp(TimeService.convertCSTInMillisecondToUTC(d.ts));
       tradeMessage.setSymbol(d.symbol);
 
-      Trade trade = new Trade();
+      TradeEntry trade = new TradeEntry();
       trade.setTradeId(d.tradeId + "");
       trade.setTimestamp(d.ts);
       trade.setPrice(new BigDecimal(d.price));
-      trade.setAmount(new BigDecimal(d.volume));
+      trade.setVolume(new BigDecimal(d.volume));
       trade.setDirection(TradeDirection.lookup(d.side.name().toLowerCase()));
 
-      List<Trade> list = new ArrayList<Trade>();
+      List<TradeEntry> list = new ArrayList<TradeEntry>();
       list.add(trade);
       tradeMessage.setTradeList(list);
       return tradeMessage;
@@ -392,6 +393,50 @@ public class WSRequestImpl {
 
       candlestickMessage.setDataList(dataList);
       return candlestickMessage;
+    };
+    return request;
+  }
+
+
+  WSRequest<TradeMessage> requestTrade(
+      List<String> symbols, int limit,
+      SubscriptionListener<TradeMessage> subscriptionListener,
+      SubscriptionErrorHandler errorHandler) {
+    InputChecker.checker().checkSymbolList(symbols).shouldNotNull(subscriptionListener, "listener");
+
+    WSRequest<TradeMessage> request =
+        new WSRequest<>(subscriptionListener, errorHandler);
+    if (symbols.size() == 1) {
+      request.name = "Req Trade for " + symbols;
+    } else {
+      request.name = "Req Trade for " + symbols + " ...";
+    }
+    request.connectionHandler = (connection) ->
+        symbols.stream()
+            .map((symbol) -> ChannelUtil.tradeReqChannel(symbol, limit))
+            .forEach(req -> {
+              connection.send(req);
+              await(1);
+            });
+    request.parser = (r) -> {
+      EventDecoder.ReqTrade reqTrade = (EventDecoder.ReqTrade) r.data;
+      TradeMessage tradeMessage = new TradeMessage();
+      tradeMessage.setSymbol(reqTrade.symbol);
+
+      List<ReqTrade.Tick> tickList = reqTrade.trades;
+      List<TradeEntry> list = new ArrayList<>(tickList.size());
+      for (ReqTrade.Tick tick : tickList) {
+        TradeEntry trade = new TradeEntry();
+        trade.setTradeId(tick.tradeId + "");
+        trade.setTimestamp(tick.ts);
+        trade.setPrice(new BigDecimal(tick.price));
+        trade.setVolume(new BigDecimal(tick.volume));
+        trade.setDirection(TradeDirection.lookup(tick.side.name().toLowerCase()));
+        list.add(trade);
+      }
+
+      tradeMessage.setTradeList(list);
+      return tradeMessage;
     };
     return request;
   }

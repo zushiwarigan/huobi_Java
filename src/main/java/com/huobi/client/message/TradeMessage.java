@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import com.huobi.client.message.model.TradeEntry;
 import com.huobi.client.model.Trade;
 
 /**
@@ -35,5 +36,5 @@ public class TradeMessage {
    *
    * The trade data, see {@link Trade}
    */
-  private List<Trade> tradeList;
+  private List<TradeEntry> tradeList;
 }

@@ -3,7 +3,7 @@ package com.huobi.client.examples;
 import lombok.extern.slf4j.Slf4j;
 
 import com.huobi.client.SubscribeClient;
-import com.huobi.client.model.Trade;
+import com.huobi.client.message.model.TradeEntry;
 
 @Slf4j
 public class SubscribeTrades {
@@ -12,16 +12,26 @@ public class SubscribeTrades {
 
     SubscribeClient subscribeClient = SubscribeClient.create();
     subscribeClient.subscribeTradeEvent("btcusdt", (tradeMessage) -> {
-
-      for (Trade trade : tradeMessage.getTradeList()) {
+      log.info("=====[sub]===={}====={}===",tradeMessage.getSymbol(),tradeMessage.getTradeList().size());
+      for (TradeEntry trade : tradeMessage.getTradeList()) {
         log.info(" tradeId:{}", trade.getTradeId());
         log.info(" direction:{}", trade.getDirection().toString());
         log.info(" price:{}", trade.getPrice().toPlainString());
-        log.info(" amount:{}", trade.getAmount().toPlainString());
+        log.info(" volume:{}", trade.getVolume().toPlainString());
         log.info(" timestamp:{}", trade.getTimestamp());
       }
+    });
 
 
+    subscribeClient.requestTradeEvent("btcusdt",20, (tradeMessage) -> {
+      log.info("=====[req]===={}====={}===",tradeMessage.getSymbol(),tradeMessage.getTradeList().size());
+      for (TradeEntry trade : tradeMessage.getTradeList()) {
+        log.info(" tradeId:{}", trade.getTradeId());
+        log.info(" direction:{}", trade.getDirection().toString());
+        log.info(" price:{}", trade.getPrice().toPlainString());
+        log.info(" volume:{}", trade.getVolume().toPlainString());
+        log.info(" timestamp:{}", trade.getTimestamp());
+      }
     });
 
 

@@ -58,15 +58,15 @@ public class WSStreamClientImpl implements SubscribeClient {
   }
 
   @Override
-  public void subscribeCandlestick(
+  public void subscribeCandlestickEvent(
       String symbols,
       CandlestickIntervalEnum interval,
       SubscriptionListener<CandlestickMessage> callback) {
-    subscribeCandlestick(symbols, interval, callback, null);
+    subscribeCandlestickEvent(symbols, interval, callback, null);
   }
 
   @Override
-  public void subscribeCandlestick(
+  public void subscribeCandlestickEvent(
       String symbols,
       CandlestickIntervalEnum interval,
       SubscriptionListener<CandlestickMessage> subscriptionListener,
@@ -76,21 +76,21 @@ public class WSStreamClientImpl implements SubscribeClient {
   }
 
   @Override
-  public void subscribePriceDepth(
+  public void subscribePriceDepthEvent(
       String symbols,
       SubscriptionListener<PriceDepthMessage> subscriptionListener) {
-    subscribePriceDepth(symbols, DepthLevelEnum.LEVEL_5, DepthStepEnum.STEP0, subscriptionListener, null);
+    subscribePriceDepthEvent(symbols, DepthLevelEnum.LEVEL_5, DepthStepEnum.STEP0, subscriptionListener, null);
   }
 
   @Override
-  public void subscribePriceDepth(
+  public void subscribePriceDepthEvent(
       String symbols, DepthLevelEnum depthLevel, DepthStepEnum depthStep,
       SubscriptionListener<PriceDepthMessage> subscriptionListener) {
-    subscribePriceDepth(symbols, depthLevel, depthStep, subscriptionListener, null);
+    subscribePriceDepthEvent(symbols, depthLevel, depthStep, subscriptionListener, null);
   }
 
   @Override
-  public void subscribePriceDepth(
+  public void subscribePriceDepthEvent(
       String symbols, DepthLevelEnum depthLevel, DepthStepEnum depthStep,
       SubscriptionListener<PriceDepthMessage> subscriptionListener,
       SubscriptionErrorHandler errorHandler) {
@@ -170,6 +170,16 @@ public class WSStreamClientImpl implements SubscribeClient {
       SubscriptionErrorHandler errorHandler) {
     createConnection(requestImpl.subscribePriceDepth(
         parseSymbols(symbols), depthLevel, depthStep, callback, errorHandler, false));
+  }
+
+  @Override
+  public void requestTradeEvent(String symbols, int limit, SubscriptionListener<TradeMessage> callback) {
+    requestTradeEvent(symbols, limit, callback, null);
+  }
+
+  @Override
+  public void requestTradeEvent(String symbols, int limit, SubscriptionListener<TradeMessage> callback, SubscriptionErrorHandler errorHandler) {
+    createConnection(requestImpl.requestTrade(parseSymbols(symbols), limit, callback, errorHandler));
   }
 
 
