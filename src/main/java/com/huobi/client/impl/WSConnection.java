@@ -183,7 +183,7 @@ public class WSConnection extends WebSocketListener {
       }
       if (r.action.equals(Action.PING.toString())) {
         processPingOnMarketLine(webSocket, r);
-      } else if (r.action.equals(Action.PUSH.toString())) {
+      } else if (r.action.equals(Action.PUSH.toString()) || r.action.equals(Action.REQ.toString())) {
         onReceive(r);
       }
     } catch (Exception e) {
@@ -206,7 +206,7 @@ public class WSConnection extends WebSocketListener {
   private void onReceive(R r) {
     Object obj = null;
     try {
-      obj = request.rParser.parseR(r);
+      obj = request.parser.parse(r);
     } catch (Exception e) {
       onError("Failed to parse server's response: " + e.getMessage(), e);
     }

@@ -1,8 +1,12 @@
 package com.huobi.client.utils;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 
+import com.huobi.client.channel.ReqChannel;
 import com.huobi.client.channel.SubChannel;
 import com.huobi.gateway.enums.CandlestickIntervalEnum;
 import com.huobi.gateway.enums.DepthStepEnum;
@@ -12,12 +16,25 @@ import com.huobi.gateway.enums.DepthStepEnum;
 public abstract class ChannelUtil {
 
   public static String candlestickChannel(String symbol, CandlestickIntervalEnum interval) {
-    String ch = getCandlestickChannel(symbol,interval);
+    String ch = getCandlestickChannel(symbol, interval);
     SubChannel channel = SubChannel.builder().action("sub").ch(ch).build();
     return JSON.toJSONString(channel);
   }
 
-  public static String getCandlestickChannel(String symbol, CandlestickIntervalEnum interval){
+  public static String candlestickReqChannel(String symbol, Long from, Long to, CandlestickIntervalEnum interval) {
+    String ch = getCandlestickChannel(symbol, interval);
+    Map<String, Object> params = new HashMap<>();
+    if (from != null) {
+      params.put("from", from);
+    }
+    if (to != null) {
+      params.put("to", to);
+    }
+    ReqChannel channel = ReqChannel.builder().seq(System.currentTimeMillis()).action("req").params(params).ch(ch).build();
+    return JSON.toJSONString(channel);
+  }
+
+  public static String getCandlestickChannel(String symbol, CandlestickIntervalEnum interval) {
     return "candlestick#" + symbol + '@' + interval.value;
   }
 

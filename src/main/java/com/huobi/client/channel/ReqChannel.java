@@ -22,6 +22,6 @@ public class ReqChannel {
 
   private String ch;
 
-  private Map<String,String> params = new HashMap<>();
+  private Map<String,Object> params = new HashMap<>();
 
 }

@@ -1,10 +1,14 @@
 package com.huobi.client.message;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
+import com.huobi.client.message.model.CandlestickEntry;
 import com.huobi.client.model.Candlestick;
 import com.huobi.gateway.enums.CandlestickIntervalEnum;
 
@@ -15,6 +19,7 @@ import com.huobi.gateway.enums.CandlestickIntervalEnum;
 @AllArgsConstructor
 @Data
 @Builder
+@ToString
 public class CandlestickMessage {
 
   /**
@@ -33,6 +38,6 @@ public class CandlestickMessage {
   /**
    * Get the data of candlestick/kline see {@link Candlestick}
    */
-  private Candlestick data;
+  private List<CandlestickEntry> dataList;
 }
 

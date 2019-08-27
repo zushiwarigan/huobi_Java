@@ -347,7 +347,7 @@ public class EventDecoder {
     public String symbol;
     public List<Tick> candlesticks;
 
-    static class Tick {
+    public static class Tick {
 
       public long id;
       public long ts;

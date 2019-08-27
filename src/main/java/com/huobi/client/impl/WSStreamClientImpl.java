@@ -131,14 +131,17 @@ public class WSStreamClientImpl implements SubscribeClient {
   }
 
   @Override
-  public void requestCandlestickEvent(String symbols, CandlestickIntervalEnum interval, SubscriptionListener<TradeOverviewMessage> callback) {
-    requestCandlestickEvent(symbols, interval, callback, null);
+  public void requestCandlestickEvent(String symbols, Long from, Long to, CandlestickIntervalEnum interval,
+      SubscriptionListener<CandlestickMessage> callback) {
+    requestCandlestickEvent(symbols, from, to, interval, callback, null);
   }
 
   @Override
-  public void requestCandlestickEvent(String symbols, CandlestickIntervalEnum interval, SubscriptionListener<TradeOverviewMessage> callback,
+  public void requestCandlestickEvent(String symbols, Long from, Long to, CandlestickIntervalEnum interval,
+      SubscriptionListener<CandlestickMessage> callback,
       SubscriptionErrorHandler errorHandler) {
 
+    createConnection(requestImpl.requestCandlestickEvent(parseSymbols(symbols),from,to,interval,callback,errorHandler));
   }
 
 

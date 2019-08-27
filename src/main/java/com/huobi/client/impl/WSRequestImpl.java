@@ -17,8 +17,8 @@ import com.huobi.client.message.PriceDepthMessage;
 import com.huobi.client.message.TradeMessage;
 import com.huobi.client.message.TradeOverviewMessage;
 import com.huobi.client.message.TradeSummaryMessage;
+import com.huobi.client.message.model.CandlestickEntry;
 import com.huobi.client.model.AggrTrade;
-import com.huobi.client.model.Candlestick;
 import com.huobi.client.model.DepthEntry;
 import com.huobi.client.model.PriceDepth;
 import com.huobi.client.model.Trade;
@@ -30,8 +30,10 @@ import com.huobi.client.utils.TimeService;
 import com.huobi.gateway.EventDecoder;
 import com.huobi.gateway.EventDecoder.DepthTick;
 import com.huobi.gateway.EventDecoder.OverviewTick;
+import com.huobi.gateway.EventDecoder.ReqCandlestick.Tick;
 import com.huobi.gateway.enums.CandlestickIntervalEnum;
 import com.huobi.gateway.enums.DepthStepEnum;
+import com.huobi.gateway.protocol.MarketDownstreamProtocol.Action;
 
 import static com.huobi.client.utils.InternalUtils.await;
 
@@ -67,22 +69,28 @@ public class WSRequestImpl {
               await(1);
             });
     request.parser = (r) -> {
-      EventDecoder.Candlestick d = (EventDecoder.Candlestick) r.data;
+      EventDecoder.Candlestick candlestick = (EventDecoder.Candlestick) r.data;
+
       CandlestickMessage candlestickMessage = new CandlestickMessage();
-      candlestickMessage.setSymbol(d.symbol);
       candlestickMessage.setInterval(interval);
-      candlestickMessage.setTimestamp(
-          TimeService.convertCSTInMillisecondToUTC(d.ts));
-      Candlestick data = new Candlestick();
-      data.setTimestamp(TimeService.convertCSTInSecondToUTC(d.ts));
-      data.setOpen(new BigDecimal(d.open));
-      data.setClose(new BigDecimal(d.close));
-      data.setLow(new BigDecimal(d.low));
-      data.setHigh(new BigDecimal(d.high));
-      data.setAmount(new BigDecimal(d.turnover));
-      data.setCount(d.numOfTrades);
-      data.setVolume(new BigDecimal(d.volume));
-      candlestickMessage.setData(data);
+      List<CandlestickEntry> dataList = new ArrayList<>();
+      candlestickMessage.setSymbol(candlestick.symbol);
+      candlestickMessage.setTimestamp(TimeService.convertCSTInMillisecondToUTC(candlestick.ts));
+
+      CandlestickEntry data = CandlestickEntry.builder()
+          .id(candlestick.id)
+          .timestamp(TimeService.convertCSTInMillisecondToUTC(candlestick.ts))
+          .open(new BigDecimal(candlestick.open))
+          .close(new BigDecimal(candlestick.close))
+          .high(new BigDecimal(candlestick.high))
+          .low(new BigDecimal(candlestick.low))
+          .volume(new BigDecimal(candlestick.volume))
+          .turnover(new BigDecimal(candlestick.turnover))
+          .numOfTrades(candlestick.numOfTrades)
+          .build();
+      dataList.add(data);
+
+      candlestickMessage.setDataList(dataList);
       return candlestickMessage;
     };
     return request;
@@ -317,6 +325,67 @@ public class WSRequestImpl {
 
       message.setOverviewList(overviewList);
       return message;
+    };
+    return request;
+  }
+
+
+  public WSRequest<CandlestickMessage> requestCandlestickEvent(
+      List<String> symbols,
+      Long from,
+      Long to,
+      CandlestickIntervalEnum interval,
+      SubscriptionListener<CandlestickMessage> subscriptionListener,
+      SubscriptionErrorHandler errorHandler) {
+    InputChecker.checker()
+        .checkSymbolList(symbols)
+        .shouldNotNull(subscriptionListener, "listener")
+        .shouldNotNull(interval, "CandlestickInterval");
+    WSRequest<CandlestickMessage> request =
+        new WSRequest<>(subscriptionListener, errorHandler);
+    if (symbols.size() == 1) {
+      request.name = "Req Candlestick for " + symbols;
+    } else {
+      request.name = "Req Candlestick for " + symbols + " ...";
+    }
+
+    request.connectionHandler = (connection) ->
+        symbols.stream()
+            .map((symbol) -> ChannelUtil.candlestickReqChannel(symbol, from, to, interval))
+            .forEach(req -> {
+              System.out.println(" send message:["+req+"]");
+              connection.send(req);
+              await(1);
+            });
+    request.parser = (r) -> {
+
+
+      EventDecoder.ReqCandlestick reqCandlestick = (EventDecoder.ReqCandlestick) r.data;
+
+      CandlestickMessage candlestickMessage = new CandlestickMessage();
+      candlestickMessage.setInterval(interval);
+      candlestickMessage.setSymbol(reqCandlestick.symbol);
+
+      List<CandlestickEntry> dataList = new ArrayList<>();
+      List<Tick> tickList = reqCandlestick.candlesticks;
+
+      for (Tick tick : tickList) {
+        CandlestickEntry data = CandlestickEntry.builder()
+            .id(tick.id)
+            .timestamp(TimeService.convertCSTInMillisecondToUTC(tick.ts))
+            .open(new BigDecimal(tick.open))
+            .close(new BigDecimal(tick.close))
+            .high(new BigDecimal(tick.high))
+            .low(new BigDecimal(tick.low))
+            .volume(new BigDecimal(tick.volume))
+            .turnover(new BigDecimal(tick.turnover))
+            .numOfTrades(tick.numOfTrades)
+            .build();
+        dataList.add(data);
+      }
+
+      candlestickMessage.setDataList(dataList);
+      return candlestickMessage;
     };
     return request;
   }
