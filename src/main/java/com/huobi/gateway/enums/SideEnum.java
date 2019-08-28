@@ -1,4 +1,4 @@
-package com.huobi.gateway;
+package com.huobi.gateway.enums;
 
 import lombok.AllArgsConstructor;
 

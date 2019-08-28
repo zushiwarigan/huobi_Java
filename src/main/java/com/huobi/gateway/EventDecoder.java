@@ -6,6 +6,7 @@ import java.util.List;
 import com.google.protobuf.InvalidProtocolBufferException;
 
 
+import com.huobi.gateway.enums.SideEnum;
 import com.huobi.gateway.protocol.MarketDownstreamProtocol;
 import com.huobi.gateway.protocol.MarketDownstreamProtocol.Action;
 import com.huobi.gateway.protocol.MarketDownstreamProtocol.Result;

@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import com.huobi.gateway.SideEnum;
+import com.huobi.gateway.enums.SideEnum;
 
 @Data
 @Builder
