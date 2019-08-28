@@ -32,10 +32,7 @@ repositories {
 
 dependencies {
     implementation("com.google.protobuf:protobuf-java:$protobufVersion")
-    implementation("com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion")
-    implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
     implementation("com.google.guava:guava:$guavaVersion")
-    implementation "com.google.code.gson:gson:${gsonVersion}"
     implementation "commons-io:commons-io:${commonsioVersion}"
     implementation "org.apache.commons:commons-lang3:${commonslang3Version}"
     implementation "commons-beanutils:commons-beanutils:${commonsbeanutilsVersion}"
