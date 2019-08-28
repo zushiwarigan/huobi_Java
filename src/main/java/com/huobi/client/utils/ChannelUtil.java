@@ -14,8 +14,8 @@ import com.huobi.gateway.enums.DepthStepEnum;
 @Slf4j
 public abstract class ChannelUtil {
 
-  public static final String ACTION_SUB = "sub";
-  public static final String ACTION_REQ = "req";
+  private static final String ACTION_SUB = "sub";
+  private static final String ACTION_REQ = "req";
 
   public static String candlestickChannel(String symbol, CandlestickIntervalEnum interval) {
     String ch = getCandlestickChannel(symbol, interval);
