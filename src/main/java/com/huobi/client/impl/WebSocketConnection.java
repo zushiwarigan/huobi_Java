@@ -93,6 +93,8 @@ public class WebSocketConnection extends WebSocketListener {
     this.okhttpRequest = request.authHandler == null
         ? new Request.Builder().url(subscriptionMarketUrl).build()
         : new Request.Builder().url(subscriptionTradingUrl).build();
+
+    log.info("[Connect] URI {}",this.okhttpRequest.url().url().toString());
     this.watchDog = watchDog;
     log.info("[Sub] Connection [id: "
         + this.connectionId
@@ -129,6 +131,7 @@ public class WebSocketConnection extends WebSocketListener {
   }
 
   void send(String str) {
+    log.info("[Connection] send :{}", str);
     boolean result = false;
     if (webSocket != null) {
       result = webSocket.send(str);

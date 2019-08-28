@@ -72,10 +72,8 @@ public class WSConnection extends WebSocketListener {
   private String subscriptionMarketUrl = "ws://huobi-gateway.test-12.huobiapps.com/ws";
   private String subscriptionTradingUrl = "ws://huobi-gateway.test-12.huobiapps.com/ws/v1";
   private String tradingHost;
-  private String scheme = "ws://";
-  private String marketUrl = "/ws";
+  private String marketUrl = "/spot/v2/ws";
   private String tradingUrl = "/ws/v1";
-  private String apiUrl = "/api/ws";
 
   public WSConnection(
       String apiKey,
@@ -88,11 +86,13 @@ public class WSConnection extends WebSocketListener {
     this.secretKey = secretKey;
     this.request = request;
     try {
-      String host = new URI(options.getUri()).getHost();
+      URI uri = new URI(options.getUri());
+      String host = uri.getHost();
+      String scheme = uri.getScheme();
       this.tradingHost = host;
 //      if (host.indexOf("api") == 0) {
-      this.subscriptionMarketUrl = scheme + host + marketUrl;
-      this.subscriptionTradingUrl = scheme + host + tradingUrl;
+      this.subscriptionMarketUrl = scheme + "://" + host + marketUrl;
+      this.subscriptionTradingUrl = scheme + "://" + host + tradingUrl;
 //      } else {
 //        this.subscriptionMarketUrl = scheme + host + apiUrl;
 //        this.subscriptionTradingUrl = scheme + host + tradingUrl;
@@ -106,23 +106,23 @@ public class WSConnection extends WebSocketListener {
         .addHeader(Const.CODEC, CommonConstant.CODEC_PROTOBUF).build()
         : new Request.Builder().url(subscriptionTradingUrl).addHeader(Const.EXCHANGE_CODE, Const.EXCHANGE_PRO_CODE)
             .addHeader(Const.CODEC, CommonConstant.CODEC_PROTOBUF).build();
+
+    log.info("[WebSocket] URI {}",this.okhttpRequest.url().url().toString());
     this.watchDog = watchDog;
-    log.info("[Sub] Connection [id: "
-        + this.connectionId
-        + "] created for " + request.name);
+    log.info("[WebSocket] Connection [id: " + this.connectionId + "] created for " + request.name);
   }
 
   void connect() {
     if (state == ConnectionState.CONNECTED) {
-      log.info("[Sub][" + this.connectionId + "] Already connected");
+      log.info("[WebSocket][" + this.connectionId + "] Already connected");
       return;
     }
-    log.info("[Sub][" + this.connectionId + "] Connecting...");
+    log.info("[WebSocket][" + this.connectionId + "] Connecting...");
     webSocket = RestApiInvoker.createWebSocket(okhttpRequest, this);
   }
 
   void reConnect(int delayInSecond) {
-    log.warn("[Sub][" + this.connectionId + "] Reconnecting after "
+    log.warn("[WebSocket][" + this.connectionId + "] Reconnecting after "
         + delayInSecond + " seconds later");
     if (webSocket != null) {
       webSocket.cancel();
@@ -142,12 +142,12 @@ public class WSConnection extends WebSocketListener {
 
   void send(String str) {
     boolean result = false;
+    log.info("[WebSocket] send :{}", str);
     if (webSocket != null) {
       result = webSocket.send(str);
     }
     if (!result) {
-      log.error("[Sub][" + this.connectionId
-          + "] Failed to send message");
+      log.error("[WebSocket][" + this.connectionId + "] Failed to send message");
       closeOnError();
     }
   }
@@ -164,8 +164,7 @@ public class WSConnection extends WebSocketListener {
     super.onMessage(webSocket, bytes);
     try {
       if (request == null) {
-        log.error("[Sub][" + this.connectionId
-            + "] request is null");
+        log.error("[WebSocket][" + this.connectionId + "] request is null");
         closeOnError();
         return;
       }
@@ -176,8 +175,7 @@ public class WSConnection extends WebSocketListener {
       try {
         r = EventDecoder.decode(bytes.toByteArray());
       } catch (IOException e) {
-        log.error("[Sub][" + this.connectionId
-            + "] Receive message error: " + e.getMessage());
+        log.error("[WebSocket][" + this.connectionId + "] Receive message error: " + e.getMessage());
         closeOnError();
         return;
       }
@@ -187,8 +185,7 @@ public class WSConnection extends WebSocketListener {
         onReceive(r);
       }
     } catch (Exception e) {
-      log.error("[Sub][" + this.connectionId
-          + "] Unexpected error: " + e.getMessage());
+      log.error("[WebSocket][" + this.connectionId + "] Unexpected error: " + e.getMessage());
       closeOnError();
     }
   }
@@ -199,7 +196,7 @@ public class WSConnection extends WebSocketListener {
           HuobiApiException.SUBSCRIPTION_ERROR, errorMessage, e);
       request.errorHandler.onError(exception);
     }
-    log.error("[Sub][" + this.connectionId + "] " + errorMessage);
+    log.error("[WebSocket][" + this.connectionId + "] " + errorMessage);
   }
 
   @SuppressWarnings("unchecked")
@@ -227,7 +224,7 @@ public class WSConnection extends WebSocketListener {
   }
 
   public void close() {
-    log.error("[Sub][" + this.connectionId + "] Closing normally");
+    log.error("[WebSocket][" + this.connectionId + "] Closing normally");
     webSocket.cancel();
     webSocket = null;
     watchDog.onClosedNormally(this);
@@ -246,7 +243,7 @@ public class WSConnection extends WebSocketListener {
   public void onOpen(WebSocket webSocket, Response response) {
     super.onOpen(webSocket, response);
     this.webSocket = webSocket;
-    log.info("[Sub][" + this.connectionId + "] Connected to server");
+    log.info("[WebSocket][" + this.connectionId + "] Connected to server");
     watchDog.onConnectionCreated(this);
     if (request.connectionHandler != null) {
       request.connectionHandler.handle(this);
@@ -281,7 +278,7 @@ public class WSConnection extends WebSocketListener {
     if (webSocket != null) {
       this.webSocket.cancel();
       state = ConnectionState.CLOSED_ON_ERROR;
-      log.error("[Sub][" + this.connectionId + "] Connection is closing due to error");
+      log.error("[WebSocket][" + this.connectionId + "] Connection is closing due to error");
     }
   }
 }

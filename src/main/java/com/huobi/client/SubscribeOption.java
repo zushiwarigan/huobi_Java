@@ -17,7 +17,8 @@ import com.huobi.client.exception.HuobiApiException;
 public class SubscribeOption {
 
   @Getter
-  private String uri = "ws://huobi-gateway.test-12.huobiapps.com/";
+//  private String uri = "ws://huobi-gateway.test-12.huobiapps.com/";
+  private String uri = "wss://api.huobi.pro/";
 
   /**
    * When the connection lost is happening on the subscription line, specify whether the client reconnect to server automatically.
