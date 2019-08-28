@@ -22,4 +22,9 @@ public enum CandlestickInterval {
 
   @Getter
   private final String code;
+
+  @Override
+  public String toString() {
+    return code;
+  }
 }

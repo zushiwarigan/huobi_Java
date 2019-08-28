@@ -46,4 +46,9 @@ public enum AccountChangeType {
   public static AccountChangeType lookup(String name) {
     return lookup.lookup(name);
   }
+
+  @Override
+  public String toString() {
+    return code;
+  }
 }
