@@ -2,10 +2,10 @@ package com.huobi.client.examples;
 
 import lombok.extern.slf4j.Slf4j;
 
-import com.huobi.client.SubscribeClient;
-import com.huobi.client.SubscriptionClient;
-import com.huobi.client.enums.CandlestickInterval;
-import com.huobi.client.message.model.CandlestickEntry;
+import com.huobi.client.v1.SubscribeClient;
+import com.huobi.client.v1.SubscriptionClient;
+import com.huobi.client.v1.enums.CandlestickInterval;
+import com.huobi.client.v1.message.model.CandlestickEntry;
 import com.huobi.gateway.enums.CandlestickIntervalEnum;
 
 

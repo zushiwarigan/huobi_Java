@@ -1,8 +1,8 @@
 package com.huobi.client.examples;
 
-import com.huobi.client.AsyncRequestClient;
-import com.huobi.client.SyncRequestClient;
-import com.huobi.client.model.Trade;
+import com.huobi.client.v1.AsyncRequestClient;
+import com.huobi.client.v1.SyncRequestClient;
+import com.huobi.client.v1.model.Trade;
 import java.util.List;
 
 public class GetHistoricalTrade {

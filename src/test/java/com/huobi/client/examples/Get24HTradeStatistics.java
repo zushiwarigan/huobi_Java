@@ -1,9 +1,9 @@
 package com.huobi.client.examples;
 
-import com.huobi.client.AsyncRequestClient;
-import com.huobi.client.RequestOptions;
-import com.huobi.client.SyncRequestClient;
-import com.huobi.client.model.TradeStatistics;
+import com.huobi.client.v1.AsyncRequestClient;
+import com.huobi.client.v1.RequestOptions;
+import com.huobi.client.v1.SyncRequestClient;
+import com.huobi.client.v1.model.TradeStatistics;
 
 public class Get24HTradeStatistics {
   public static void main(String[] args) {

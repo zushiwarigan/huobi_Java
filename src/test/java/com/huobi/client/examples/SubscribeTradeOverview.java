@@ -2,8 +2,8 @@ package com.huobi.client.examples;
 
 import lombok.extern.slf4j.Slf4j;
 
-import com.huobi.client.SubscribeClient;
-import com.huobi.client.message.model.TradeOverviewEntry;
+import com.huobi.client.v1.SubscribeClient;
+import com.huobi.client.v1.message.model.TradeOverviewEntry;
 
 @Slf4j
 public class SubscribeTradeOverview {

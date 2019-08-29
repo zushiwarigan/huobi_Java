@@ -4,10 +4,10 @@ import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
 
-import com.huobi.client.AsyncRequestClient;
-import com.huobi.client.SyncRequestClient;
-import com.huobi.client.model.Candlestick;
-import com.huobi.client.enums.CandlestickInterval;
+import com.huobi.client.v1.AsyncRequestClient;
+import com.huobi.client.v1.SyncRequestClient;
+import com.huobi.client.v1.model.Candlestick;
+import com.huobi.client.v1.enums.CandlestickInterval;
 
 @Slf4j
 public class GetCandlestickData {

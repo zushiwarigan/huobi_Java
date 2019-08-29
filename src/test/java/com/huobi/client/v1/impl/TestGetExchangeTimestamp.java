@@ -1,0 +1,53 @@
+package com.huobi.client.v1.impl;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import com.huobi.client.v1.RequestOptions;
+import com.huobi.client.v1.exception.HuobiApiException;
+import com.huobi.client.v1.utils.JsonWrapper;
+import com.huobi.client.v1.utils.TimeService;
+import okhttp3.Request;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
+public class TestGetExchangeTimestamp {
+
+  private RestApiRequestImpl impl = null;
+  private String data = "{\n"
+      + "  \"status\": \"ok\",\n"
+      + "  \"data\": 1494900087029\n"
+      + "}";
+
+  private String dataError = "{\n"
+      + "  \"status\": \"ok\"\n"
+      + "}";
+
+  @Before
+  public void Initialize() {
+    impl = new RestApiRequestImpl("", "", new RequestOptions());
+  }
+
+  @Rule
+  public ExpectedException thrown = ExpectedException.none();
+
+  @Test
+  public void test() {
+    RestApiRequest<Long> restApiRequest = impl.getExchangeTimestamp();
+    Request request = restApiRequest.request;
+    assertEquals("GET", request.method());
+    assertTrue(request.url().toString().contains("/v1/common/timestamp"));
+    Long result = restApiRequest.jsonParser.parseJson(JsonWrapper.parseFromString(data));
+    assertEquals(TimeService.convertCSTInMillisecondToUTC(1494900087029L), result.longValue());
+  }
+
+  @Test
+  public void test_error() {
+    RestApiRequest<Long> restApiRequest = impl.getExchangeTimestamp();
+    thrown.expect(HuobiApiException.class);
+    thrown.expectMessage("Get json item field");
+    restApiRequest.jsonParser.parseJson(JsonWrapper.parseFromString(dataError));
+  }
+}

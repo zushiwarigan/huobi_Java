@@ -1,9 +1,9 @@
 package com.huobi.client.examples;
 
-import com.huobi.client.AsyncRequestClient;
-import com.huobi.client.SyncRequestClient;
-import com.huobi.client.model.ExchangeInfo;
-import com.huobi.client.model.Symbol;
+import com.huobi.client.v1.AsyncRequestClient;
+import com.huobi.client.v1.SyncRequestClient;
+import com.huobi.client.v1.model.ExchangeInfo;
+import com.huobi.client.v1.model.Symbol;
 
 public class GetExchangeInfo {
 

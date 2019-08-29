@@ -1,7 +1,7 @@
 package com.huobi.client.examples;
 
-import com.huobi.client.SyncRequestClient;
-import com.huobi.client.model.TradeStatistics;
+import com.huobi.client.v1.SyncRequestClient;
+import com.huobi.client.v1.model.TradeStatistics;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;

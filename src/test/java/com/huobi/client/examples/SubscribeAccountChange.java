@@ -2,10 +2,10 @@ package com.huobi.client.examples;
 
 import lombok.extern.slf4j.Slf4j;
 
-import com.huobi.client.SubscriptionClient;
-import com.huobi.client.SubscriptionOptions;
-import com.huobi.client.model.AccountChange;
-import com.huobi.client.enums.BalanceMode;
+import com.huobi.client.v1.SubscriptionClient;
+import com.huobi.client.v1.SubscriptionOptions;
+import com.huobi.client.v1.model.AccountChange;
+import com.huobi.client.v1.enums.BalanceMode;
 
 
 @Slf4j

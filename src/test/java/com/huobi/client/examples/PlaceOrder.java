@@ -1,10 +1,10 @@
 package com.huobi.client.examples;
 
-import com.huobi.client.SyncRequestClient;
-import com.huobi.client.model.Order;
-import com.huobi.client.enums.AccountType;
-import com.huobi.client.enums.OrderType;
-import com.huobi.client.request.NewOrderRequest;
+import com.huobi.client.v1.SyncRequestClient;
+import com.huobi.client.v1.model.Order;
+import com.huobi.client.v1.enums.AccountType;
+import com.huobi.client.v1.enums.OrderType;
+import com.huobi.client.v1.request.NewOrderRequest;
 import java.math.BigDecimal;
 
 public class PlaceOrder {
