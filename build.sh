@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-CurrentDir=`pwd`
-find $CurrentDir -name "build" | xargs rm -rf                                                                                                                                 [±develop ●●●]
-$CurrentDir/gradlew clean  build
+CurrentDir=$(dirname $0)
+find $CurrentDir -name "target" | xargs rm -rf                                                                                                                                 [±develop ●●●]
+mvn clean  package
 
