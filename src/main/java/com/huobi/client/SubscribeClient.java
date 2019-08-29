@@ -76,7 +76,7 @@ public interface SubscribeClient {
       SubscriptionErrorHandler errorHandler);
 
   /**
-   * Subscribe price depth event. If the price depth is updated server will send the data to client and onReceive in callback will be called.
+   * Subscribe new trades event. If the new trade happened, server will send the trade message to client, and client will onReceive in callback..
    *
    * @param symbols The symbols, like "btcusdt". Use comma to separate multi symbols, like "btcusdt,ethusdt".
    * @param callback The implementation is required. onReceive will be called if receive server's update.
@@ -84,7 +84,7 @@ public interface SubscribeClient {
   void subscribeTradeEvent(String symbols, SubscriptionListener<TradeMessage> callback);
 
   /**
-   * Subscribe price depth event. If the price depth is updated, server will send the data to client and onReceive in callback will be called.
+   * Subscribe new trades event. If the new trade happened, server will send the trade message to client, and client will onReceive in callback..
    *
    * @param symbols The symbols, like "btcusdt". Use comma to separate multi symbols, like "btcusdt,ethusdt".
    * @param callback The implementation is required. onReceive will be called if receive server's update.
@@ -94,49 +94,145 @@ public interface SubscribeClient {
       SubscriptionListener<TradeMessage> callback,
       SubscriptionErrorHandler errorHandler);
 
+  /**
+   * Subscribe AggrTrades event . If the new trade happened ,server will send the aggregate of same taker price, and client will onReceive in callback..
+   * @param symbols The symbols, like "btcusdt". Use comma to separate multi symbols, like "btcusdt,ethusdt".
+   * @param callback The implementation is required. onReceive will be called if receive server's update.
+   */
   void subscribeAggrTradesEvent(String symbols, SubscriptionListener<AggrTradesMessage> callback);
 
+  /**
+   * Subscribe AggrTrades event . If the new trade happened ,server will send the aggregate of same taker price, and client will onReceive in callback..
+   * @param symbols The symbols, like "btcusdt". Use comma to separate multi symbols, like "btcusdt,ethusdt".
+   * @param callback The implementation is required. onReceive will be called if receive server's update.
+   * @param errorHandler The error handler will be called if subscription failed or error happen between client and Huobi server.
+   */
   void subscribeAggrTradesEvent(String symbols, SubscriptionListener<AggrTradesMessage> callback,
       SubscriptionErrorHandler errorHandler);
 
-
+  /**
+   * Subscribe 24 hours trade summary event . If summary is generated, server will send the data to client and onReceive in callback will be called.
+   * @param symbols The symbols, like "btcusdt". Use comma to separate multi symbols, like "btcusdt,ethusdt".
+   * @param callback The implementation is required. onReceive will be called if receive server's update.
+   */
   void subscribeTradeSummaryEvent(String symbols, SubscriptionListener<TradeSummaryMessage> callback);
 
+  /**
+   * Subscribe 24 hours trade summary event . If summary is generated, server will send the data to client and onReceive in callback will be called.
+   * @param symbols The symbols, like "btcusdt". Use comma to separate multi symbols, like "btcusdt,ethusdt".
+   * @param callback The implementation is required. onReceive will be called if receive server's update.
+   * @param errorHandler The error handler will be called if subscription failed or error happen between client and Huobi server.
+   */
   void subscribeTradeSummaryEvent(String symbols, SubscriptionListener<TradeSummaryMessage> callback,
       SubscriptionErrorHandler errorHandler);
 
+  /**
+   * Subscribe all the symbol overview . If symbol's overview change, server will send data to client and onReceive in callback.
+   * @param callback The implementation is required. onReceive will be called if receive server's update.
+   */
   void subscribeTradeOverviewEvent(SubscriptionListener<TradeOverviewMessage> callback);
 
+  /**
+   * Subscribe all the symbol overview . If symbol's overview change, server will send data to client and onReceive in callback.
+   * @param callback The implementation is required. onReceive will be called if receive server's update.
+   * @param errorHandler The error handler will be called if subscription failed or error happen between client and Huobi server.
+   */
   void subscribeTradeOverviewEvent(SubscriptionListener<TradeOverviewMessage> callback,
       SubscriptionErrorHandler errorHandler);
 
+  /**
+   * Request the KLine data from server.
+   * @param symbols The symbols, like "btcusdt". Use comma to separate multi symbols, like "btcusdt,ethusdt".
+   * @param from Get data from this UNIX timestamp
+   * @param to Get data end of this UNIX timestamp
+   * @param interval The candlestick/kline interval, MIN1, MIN5, DAY1 etc.
+   * @param callback The implementation is required. onReceive will be called if receive server's update.
+   */
   void requestCandlestickEvent(String symbols, Long from, Long to,
       CandlestickIntervalEnum interval,
       SubscriptionListener<CandlestickMessage> callback);
 
+  /**
+   * Request the KLine data from server.
+   * @param symbols The symbols, like "btcusdt". Use comma to separate multi symbols, like "btcusdt,ethusdt".
+   * @param from Get data from this UNIX timestamp
+   * @param to Get data end of this UNIX timestamp
+   * @param interval The candlestick/kline interval, MIN1, MIN5, DAY1 etc.
+   * @param callback The implementation is required. onReceive will be called if receive server's update.
+   * @param errorHandler The error handler will be called if subscription failed or error happen between client and Huobi server.
+   */
   void requestCandlestickEvent(String symbols, Long from, Long to,
       CandlestickIntervalEnum interval,
       SubscriptionListener<CandlestickMessage> callback,
       SubscriptionErrorHandler errorHandler);
 
+  /**
+   * Request price depth event. If the price depth is updated, server will send the data to client and onReceive in callback will be called.
+   *
+   * @param symbols The symbols, like "btcusdt". Use comma to separate multi symbols, like "btcusdt,ethusdt".
+   * @param callback The implementation is required. onReceive will be called if receive server's update.
+   */
   void requestPriceDepth(String symbols,SubscriptionListener<PriceDepthMessage> callback);
 
+  /**
+   * Request price depth event. If the price depth is updated, server will send the data to client and onReceive in callback will be called.
+   *
+   * @param symbols The symbols, like "btcusdt". Use comma to separate multi symbols, like "btcusdt,ethusdt".
+   * @param depthLevel The levels of price depth
+   * @param depthStep The aggregate price level by same precision or in a same range precision
+   * @param callback The implementation is required. onReceive will be called if receive server's update.
+   */
   void requestPriceDepth(String symbols, DepthLevelEnum depthLevel, DepthStepEnum depthStep,
       SubscriptionListener<PriceDepthMessage> callback);
 
+  /**
+   * Request price depth event. If the price depth is updated, server will send the data to client and onReceive in callback will be called.
+   *
+   * @param symbols The symbols, like "btcusdt". Use comma to separate multi symbols, like "btcusdt,ethusdt".
+   * @param depthLevel The levels of price depth
+   * @param depthStep The aggregate price level by same precision or in a same range precision
+   * @param callback The implementation is required. onReceive will be called if receive server's update.
+   * @param errorHandler The error handler will be called if subscription failed or error happen between client and Huobi server.
+   */
   void requestPriceDepth(String symbols, DepthLevelEnum depthLevel, DepthStepEnum depthStep,
       SubscriptionListener<PriceDepthMessage> callback,
       SubscriptionErrorHandler errorHandler);
 
+  /**
+   * Request new trades event. If the new trade happened, server will send the trade message to client, and client will onReceive in callback..
+   *
+   * @param symbols The symbols, like "btcusdt". Use comma to separate multi symbols, like "btcusdt,ethusdt".
+   * @param limit The number of one request
+   * @param callback The implementation is required. onReceive will be called if receive server's update.
+   */
   void requestTradeEvent(String symbols,int limit,
       SubscriptionListener<TradeMessage> callback);
 
+  /**
+   * Request new trades event. If the new trade happened, server will send the trade message to client, and client will onReceive in callback..
+   *
+   * @param symbols The symbols, like "btcusdt". Use comma to separate multi symbols, like "btcusdt,ethusdt".
+   * @param limit The number of one request
+   * @param callback The implementation is required. onReceive will be called if receive server's update.
+   * @param errorHandler The error handler will be called if subscription failed or error happen between client and Huobi server.
+   */
   void requestTradeEvent(String symbols,int limit,
       SubscriptionListener<TradeMessage> callback,
       SubscriptionErrorHandler errorHandler);
 
+  /**
+   * Request 24 hours trade summary event . If summary is generated, server will send the data to client and onReceive in callback will be called.
+   * @param symbols The symbols, like "btcusdt". Use comma to separate multi symbols, like "btcusdt,ethusdt".
+   * @param callback The implementation is required. onReceive will be called if receive server's update.
+   */
   void requestTradeSummaryEvent(String symbols, SubscriptionListener<TradeSummaryMessage> callback);
 
+  /**
+   * Request 24 hours trade summary event . If summary is generated, server will send the data to client and onReceive in callback will be called.
+   * @param symbols The symbols, like "btcusdt". Use comma to separate multi symbols, like "btcusdt,ethusdt".
+   * @param callback The implementation is required. onReceive will be called if receive server's update.
+   * @param errorHandler The error handler will be called if subscription failed or error happen between client and Huobi server.
+   */
   void requestTradeSummaryEvent(String symbols, SubscriptionListener<TradeSummaryMessage> callback,
       SubscriptionErrorHandler errorHandler);
 
