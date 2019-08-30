@@ -185,7 +185,7 @@ public class WSConnection extends WebSocketListener {
         onReceive(r);
       }
     } catch (Exception e) {
-      log.error("[WebSocket][" + this.connectionId + "] Unexpected error: " + e.getMessage());
+      log.error("[WebSocket][" + this.connectionId + "] On Message Unexpected error: " + e.getMessage());
       closeOnError();
     }
   }
@@ -270,7 +270,7 @@ public class WSConnection extends WebSocketListener {
 
   @Override
   public void onFailure(WebSocket webSocket, Throwable t, Response response) {
-    onError("Unexpected error: " + t.getMessage(), t);
+    onError("On Failure Unexpected error: " + t.getMessage(), t);
     closeOnError();
   }
 
