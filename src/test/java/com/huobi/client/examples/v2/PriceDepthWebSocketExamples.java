@@ -45,12 +45,11 @@ public class PriceDepthWebSocketExamples {
 
     };
 
-//    client.subscribePriceDepthEvent("btcusdt", callback);
-//
-//    client.subscribePriceDepthEvent("btcusdt", DepthLevelEnum.LEVEL_10, DepthStepEnum.STEP1, callback);
+    client.subscribePriceDepthEvent("btcusdt", callback);
+
+    client.subscribePriceDepthEvent("btcusdt", DepthLevelEnum.LEVEL_10, DepthStepEnum.STEP1, callback);
 
     client.requestPriceDepth("btcusdt", callback1);
-//    client.requestPriceDepth("btcusdt", callback);
 
   }
 
