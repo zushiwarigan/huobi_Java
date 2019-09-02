@@ -16,8 +16,12 @@ public interface HuobiWebSocketClient {
 
   void subscribePriceDepthEvent(String symbols, HuobiWebSocketCallback<PriceDepthMessage> callback);
 
-
   void subscribePriceDepthEvent(String symbols, DepthLevelEnum depthLevel, DepthStepEnum depthStep,
+      HuobiWebSocketCallback<PriceDepthMessage> callback);
+
+  void requestPriceDepth(String symbols, HuobiWebSocketCallback<PriceDepthMessage> callback);
+
+  void requestPriceDepth(String symbols, DepthLevelEnum depthLevel, DepthStepEnum depthStep,
       HuobiWebSocketCallback<PriceDepthMessage> callback);
 
 }

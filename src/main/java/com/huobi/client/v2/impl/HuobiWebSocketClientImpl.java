@@ -70,14 +70,34 @@ public class HuobiWebSocketClientImpl implements HuobiWebSocketClient {
   @Override
   public void subscribePriceDepthEvent(String symbols, DepthLevelEnum depthLevel, DepthStepEnum depthStep,
       HuobiWebSocketCallback<PriceDepthMessage> callback) {
-    listener.addParser(ChannelEnums.PRICE_DEPTH , new PriceDepthMessageParser());
+    listener.addParser(ChannelEnums.PRICE_DEPTH, new PriceDepthMessageParser());
 
     parseSymbols(symbols).forEach(symbol -> {
-      String req = ChannelUtil.priceDepthChannel(symbol,depthLevel.level, depthStep);
-      String topic = ChannelUtil.getPriceDepthChannel(symbol,depthLevel.level, depthStep);
+      String req = ChannelUtil.priceDepthChannel(symbol, depthLevel.level, depthStep);
+      String topic = ChannelUtil.getPriceDepthChannel(symbol, depthLevel.level, depthStep);
       listener.addCallback(topic, callback);
       connection.send(req);
     });
+  }
+
+  @Override
+  public void requestPriceDepth(String symbols, HuobiWebSocketCallback<PriceDepthMessage> callback) {
+    requestPriceDepth(symbols, DepthLevelEnum.LEVEL_5, DepthStepEnum.STEP0, callback);
+  }
+
+  @Override
+  public void requestPriceDepth(String symbols, DepthLevelEnum depthLevel, DepthStepEnum depthStep,
+      HuobiWebSocketCallback<PriceDepthMessage> callback) {
+
+    listener.addParser(ChannelEnums.PRICE_DEPTH, new PriceDepthMessageParser());
+
+    parseSymbols(symbols).forEach(symbol -> {
+      String req = ChannelUtil.priceDepthReqChannel(symbol, depthLevel.level, depthStep);
+      String topic = ChannelUtil.getPriceDepthChannel(symbol, depthLevel.level, depthStep);
+      listener.addCallback(topic, callback);
+      connection.send(req);
+    });
+
   }
 
 
