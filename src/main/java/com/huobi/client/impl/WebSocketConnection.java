@@ -266,7 +266,8 @@ public class WebSocketConnection extends WebSocketListener {
 
   public void close() {
     log.error("[Sub][" + this.connectionId + "] Closing normally");
-    webSocket.cancel();
+    if (webSocket != null)
+      webSocket.cancel();
     webSocket = null;
     watchDog.onClosedNormally(this);
   }
