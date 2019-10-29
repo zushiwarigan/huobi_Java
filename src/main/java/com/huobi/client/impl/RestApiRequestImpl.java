@@ -665,7 +665,8 @@ class RestApiRequestImpl {
   }
 
   RestApiRequest<List<Order>> getOpenOrders(OpenOrderRequest openOrderRequest) {
-    InputChecker.checker().checkSymbol(openOrderRequest.getSymbol())
+    InputChecker.checker()
+//            .checkSymbol(openOrderRequest.getSymbol())
         .shouldNotNull(openOrderRequest.getAccountType(), "accountType")
         .checkRange(openOrderRequest.getSize(), 1, 2000, "size");
     AccountType accountType = openOrderRequest.getAccountType();
